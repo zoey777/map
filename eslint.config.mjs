@@ -17,6 +17,7 @@ export default tsEslint.config({
 		'vue/multi-word-component-names': 'off',
 		'vue/no-unused-vars': 'error',
 		'@typescript-eslint/no-unused-expressions': 'off',
+		'@typescript-eslint/no-explicit-any': 'off',
 	},
 	languageOptions: {
 		globals: { ...globals.browser, ...globals.node },
