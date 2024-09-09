@@ -23,6 +23,8 @@ declare module 'vue' {
     'ElText\xDF': typeof import('element-plus/es')['ElText\xDF']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     Map: typeof import('./src/components/Map.vue')['default']
+    PicBox: typeof import('./src/components/PicGrid/components/PicBox.vue')['default']
+    PicGrid: typeof import('./src/components/PicGrid/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

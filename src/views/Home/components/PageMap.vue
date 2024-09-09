@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import Map from '@/components/Map.vue'
+import PicGrid from '@/components/PicGrid/index.vue'
 import { ref } from 'vue'
+
 // 是否折叠
 const isCollapse = ref(false)
 </script>
@@ -9,14 +11,28 @@ const isCollapse = ref(false)
 	<el-container class="page-map-container">
 		<el-aside
 			:style="{
-				width: isCollapse ? '200px' : '50%',
+				width: isCollapse ? '30%' : '50%',
 			}"
 			class="page-map-container__aside"
 		>
-			<Map />
+			<el-space fill direction="vertical" class="page-map-container__aside-left">
+				<div>123</div>
+				<div>
+					<Map />
+				</div>
+			</el-space>
+			<el-button @click="() => (isCollapse = !isCollapse)" class="page-map-container__collaspe_btn">
+				折叠/展开
+			</el-button>
 		</el-aside>
 		<el-container>
-			<el-main><el-button @click="() => (isCollapse = !isCollapse)">折叠/展开</el-button></el-main>
+			<el-main
+				:style="{
+					'justify-content': 'center',
+				}"
+			>
+				<PicGrid />
+			</el-main>
 		</el-container>
 	</el-container>
 </template>
@@ -25,9 +41,26 @@ const isCollapse = ref(false)
 	::v-deep(.amap-container) {
 		height: 100% !important;
 	}
+
 	height: 100%;
+
 	&__aside {
+		width: 200px;
 		transition: all 0.5s ease-in-out;
+		overflow: visible;
+		position: relative;
+
+		&-left {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	&__collaspe_btn {
+		position: absolute;
+		top: 0;
+		right: 0;
+		transform: translateX(100%);
 	}
 }
 </style>
