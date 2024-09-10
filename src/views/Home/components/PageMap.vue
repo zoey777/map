@@ -1,10 +1,18 @@
 <script setup lang="ts">
 import Map from '@/components/Map.vue'
 import PicGrid from '@/components/PicGrid/index.vue'
-import { ref } from 'vue'
+import { useMapGridStore } from '@/store/mapGrid'
+import { onMounted, ref } from 'vue'
 
 // 是否折叠
-const isCollapse = ref(false)
+const isCollapse = ref(true)
+const { setMouseup } = useMapGridStore()
+
+onMounted(() => {
+	document.addEventListener('mouseup', () => {
+		setMouseup(true)
+	})
+})
 </script>
 
 <template>
@@ -60,7 +68,7 @@ const isCollapse = ref(false)
 		position: absolute;
 		top: 0;
 		right: 0;
-		transform: translateX(100%);
+		// transform: translateX(100%);
 	}
 }
 </style>
