@@ -11,11 +11,15 @@ declare module 'vue' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElMain: typeof import('element-plus/es')['ElMain']
+    ElSkeleton: typeof import('element-plus/es')['ElSkeleton']
     ElSpace: typeof import('element-plus/es')['ElSpace']
-    Map: typeof import('./src/components/Map.vue')['default']
+    Map: typeof import('./src/components/Map/index.vue')['default']
     PicBox: typeof import('./src/components/PicGrid/components/PicBox.vue')['default']
     PicGrid: typeof import('./src/components/PicGrid/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

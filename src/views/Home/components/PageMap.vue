@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Map from '@/components/Map.vue'
+import Map from '@/components/Map/index.vue'
 import PicGrid from '@/components/PicGrid/index.vue'
 import { useMapGridStore } from '@/store/mapGrid'
 import { onMounted, ref } from 'vue'
