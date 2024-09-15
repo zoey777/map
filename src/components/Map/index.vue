@@ -3,11 +3,18 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import { SUPPORTED_CITY, useMap } from './map'
 
 const containerRef = ref<HTMLElement | null>(null)
-const { init, destroy, loading, load } = useMap(SUPPORTED_CITY['香港'])
+const { init, destroy, loading, load } = useMap(SUPPORTED_CITY['香港'], {
+	onDraw: {
+		data: [[114.15818, 22.281928]],
+		callback: result => {
+			console.log(result)
+		},
+	},
+})
 
 onMounted(async () => {
 	await init()
-	load(containerRef)
+	await load(containerRef)
 })
 
 onUnmounted(() => {
