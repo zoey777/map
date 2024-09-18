@@ -1,21 +1,56 @@
 <script lang="ts" setup>
 import { useMapGridStore } from '@/store/mapGrid'
 import PicBox from './components/PicBox.vue'
+import { onMounted, onUnmounted, toRefs } from 'vue'
 
 const mapGridStore = useMapGridStore()
 
-const handleMousedown = (event: MouseEvent) => {
-	;(event.currentTarget as HTMLDivElement).childNodes
+const { recordMousedown, recordMouseup, recordMousemove } = mapGridStore
+const { allSelectedPicIndexData } = toRefs(mapGridStore)
+/** 获取点击元素的数据属性 */
+const getElementInfo = (event: MouseEvent) => {
+	const element = event.target as HTMLElement
+	const attrs = element.dataset
+	return {
+		picIndex: attrs['picIndex'],
+	}
 }
+
+const handleMousedown = (event: MouseEvent) => {
+	const { picIndex } = getElementInfo(event)
+	if (!picIndex) return
+
+	recordMousedown(Number(picIndex))
+}
+
+const handleMousemove = (event: MouseEvent) => {
+	const { picIndex } = getElementInfo(event)
+	if (!picIndex) return
+
+	recordMousemove(Number(picIndex))
+}
+
+const handleMouseup = () => {
+	recordMouseup()
+}
+
+onMounted(() => {
+	window.addEventListener('mouseup', handleMouseup)
+})
+
+onUnmounted(() => {
+	window.removeEventListener('mouseup', handleMouseup)
+})
 </script>
 
 <template>
-	<div class="pic-grid__container" @mousedown="handleMousedown($event)">
+	<div class="pic-grid__container" @mousedown="handleMousedown($event)" @mousemove="handleMousemove($event)">
 		<PicBox
 			v-for="(item, index) in mapGridStore.renderCount"
 			:key="item"
 			:path="`/pics/${index}.jpg`"
-			v-bind:index="index"
+			:selected="allSelectedPicIndexData[index]"
+			:data-pic-index="index"
 		/>
 	</div>
 </template>
@@ -23,6 +58,7 @@ const handleMousedown = (event: MouseEvent) => {
 <style lang="less" scoped>
 .pic-grid {
 	&__container {
+		position: relative;
 		width: 100%;
 		height: 100%;
 		margin: 0;

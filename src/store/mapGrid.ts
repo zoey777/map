@@ -1,125 +1,99 @@
 import { defineStore } from 'pinia'
 
-interface DefaultState {
-	selectedIndexes: number[]
-	tempSelectedIndexes: number[]
-	renderCount: number
-	renderRow: number
-	isMousedown: boolean
-	startIndex: number
-	endIndex: number
-	startRow: number
-	endRow: number
-	startColumn: number
-	endColumn: number
-}
-const defaultState: DefaultState = {
-	selectedIndexes: [],
-	tempSelectedIndexes: [],
+type SelectedIndexMapType = Record<string, boolean>
+
+const defaultState = {
 	renderCount: 900,
 	renderRow: 30,
+
+	selectedIndexMap: {} as SelectedIndexMapType,
 	isMousedown: false,
-	startIndex: -1,
-	endIndex: -1,
-	startRow: -1,
-	endRow: -1,
-	startColumn: -1,
-	endColumn: -1,
+	startMouseIndex: -1,
+	currentMouseIndex: -1,
 }
+
 export const useMapGridStore = defineStore('map', {
 	state: () => defaultState,
 	actions: {
-		setMousedown(index: number) {
+		recordMousedown(index: number) {
 			this.isMousedown = true
-			this.startIndex = index
-
-			this.startRow = Math.floor(index / this.renderRow)
-			this.startColumn = index % this.renderRow
-			this.setEndIndex(index)
+			this.startMouseIndex = index
+			this.currentMouseIndex = index
 		},
-		setMouseup(isRoot = false) {
-			if (isRoot) {
-				this.isMousedown = false
-			} else {
-				// // 如果相同横纵，则表示点击。反选
-				// if (this.tempSelectedIndexes.length <= 1) {
-				// 	this.deleteSelect(this.startIndex)
-				// }
-				this.addToSelected()
-			}
-		},
-		setEndIndex(index: number) {
+		recordMousemove(index: number) {
 			if (this.isMousedown) {
-				this.endIndex = index
-				this.endRow = Math.floor(index / this.renderRow)
-				this.endColumn = index % this.renderRow
-				this.setTempSelected()
+				this.currentMouseIndex = index
 			}
 		},
-		// 新一次鼠标选择
-		newMouse() {
-			this.startIndex = -1
-			this.endIndex = -1
-			this.startRow = -1
-			this.startColumn = -1
-			this.endRow = -1
-			this.endColumn = -1
-		},
-		// 添加到已选中列表
-		addToSelected() {
-			this.tempSelectedIndexes.forEach(item => {
-				if (!this.selectedIndexes.includes(item)) {
-					this.selectedIndexes.push(item)
-				}
-			})
-			this.tempSelectedIndexes.splice(0)
-		},
-		// 添加到已选中列表
-		setTempSelected() {
-			const valueList = []
-			const { startRow, startColumn, endRow, endColumn } = this.getMapRowColumn
-			for (let i = startColumn; i <= endColumn; i++) {
-				for (let j = startRow; j <= endRow; j++) {
-					valueList.push(i + j * this.renderRow)
-				}
+		recordMouseup() {
+			// 判断如果开始和结束是相同索引，则反选
+			if (this.startMouseIndex === this.currentMouseIndex) {
+				this.selectedIndexMap[this.startMouseIndex] = !this.selectedIndexMap[this.startMouseIndex]
+			} else {
+				// 存储本次选中的元素
+				this.selectedIndexData.picIndexSelectedIndexArr.forEach(index => {
+					this.selectedIndexMap[index] = true
+				})
 			}
 
-			this.tempSelectedIndexes = valueList
-		},
-		deleteSelect(index: number) {
-			if (this.selectedIndexes.includes(index)) {
-				if (this.selectedIndexes.indexOf(index) !== -1) {
-					this.selectedIndexes = this.selectedIndexes.filter(item => !this.tempSelectedIndexes.includes(item))
-				}
-			}
+			// 在最后判断。selectedIndexData会判断是否处于按下状态，如果不处于按下状态，则返回空内容，导致后续无法拿到当前选中的值
+			this.isMousedown = false
 		},
 	},
 	getters: {
-		getMapRowColumn(state) {
-			let startRow = -1,
-				endRow = -1,
-				startColumn = -1,
-				endColumn = -1
-			if (state.endRow < state.startRow) {
-				startRow = state.endRow
-				endRow = state.startRow
-			} else {
-				startRow = state.startRow
-				endRow = state.endRow
+		/** 本次鼠标事件，选中的元素 */
+		selectedIndexData() {
+			const res: {
+				picIndexSelectedIndexArr: number[]
+				picIndexSelectedMap: SelectedIndexMapType
+			} = {
+				picIndexSelectedIndexArr: [],
+				picIndexSelectedMap: {},
 			}
-			if (state.endColumn < state.startColumn) {
-				startColumn = state.endColumn
-				endColumn = state.startColumn
-			} else {
-				startColumn = state.startColumn
-				endColumn = state.endColumn
+
+			/** 如果没有点击，则返回空 */
+			if (!this.isMousedown) return res
+
+			let startRowIndex = -1,
+				endRowIndex = -1,
+				startColumnIndex = -1,
+				endColumnIndex = -1
+
+			const startMouseRow = Math.floor(this.startMouseIndex / this.renderRow)
+			const currentMouseRow = Math.floor(this.currentMouseIndex / this.renderRow)
+			const startMouseColumn = this.startMouseIndex % this.renderRow
+			const currentMouseColumn = this.currentMouseIndex % this.renderRow
+
+			startRowIndex = Math.min(startMouseRow, currentMouseRow)
+			endRowIndex = Math.max(startMouseRow, currentMouseRow)
+			startColumnIndex = Math.min(startMouseColumn, currentMouseColumn)
+			endColumnIndex = Math.max(startMouseColumn, currentMouseColumn)
+
+			/**
+			 * 左上坐标[startColumnIndex,startRowIndex]
+			 * 右下坐标 [endColumnIndex,endRowIndex]
+			 */
+			const arr: number[] = []
+
+			for (let i = startColumnIndex; i <= endColumnIndex; i++) {
+				for (let j = startRowIndex; j <= endRowIndex; j++) {
+					arr.push(j * this.renderRow + i)
+				}
 			}
-			return {
-				startRow,
-				endRow,
-				startColumn,
-				endColumn,
-			}
+
+			const picIndexSelectedMap: SelectedIndexMapType = Object.fromEntries(arr.map(picIndex => [picIndex, true]))
+
+			return Object.assign(res, {
+				picIndexSelectedIndexArr: arr,
+				picIndexSelectedMap,
+			})
+		},
+		/** 包括已经选中的，和本次交互事件选中的元素 */
+		allSelectedPicIndexData() {
+			const tempMap: SelectedIndexMapType = {}
+			Object.assign(tempMap, this.selectedIndexMap)
+			Object.assign(tempMap, this.selectedIndexData.picIndexSelectedMap)
+			return tempMap
 		},
 	},
 })
