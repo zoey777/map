@@ -14,7 +14,7 @@ const handleMousedown = (event: MouseEvent) => {
 		<PicBox
 			v-for="(item, index) in mapGridStore.renderCount"
 			:key="item"
-			:path="`pics/${index}.jpg`"
+			:path="`/pics/${index}.jpg`"
 			v-bind:index="index"
 		/>
 	</div>
@@ -23,6 +23,8 @@ const handleMousedown = (event: MouseEvent) => {
 <style lang="less" scoped>
 .pic-grid {
 	&__container {
+		width: 100%;
+		height: 100%;
 		margin: 0;
 		padding: 0;
 		justify-content: space-around;
