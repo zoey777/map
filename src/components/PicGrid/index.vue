@@ -18,7 +18,10 @@ const getElementInfo = (event: MouseEvent) => {
 
 const handleMousedown = (event: MouseEvent) => {
 	const { picIndex } = getElementInfo(event)
-	if (!picIndex) return
+	if (!picIndex) {
+		recordMousedown(-1)
+		return
+	}
 
 	recordMousedown(Number(picIndex))
 }
@@ -35,6 +38,7 @@ const handleMouseup = () => {
 }
 
 onMounted(() => {
+	window.addEventListener('mousedown', handleMousedown)
 	window.addEventListener('mouseup', handleMouseup)
 })
 

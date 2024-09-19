@@ -11,15 +11,16 @@ const isCollapse = ref(true)
 	<el-container class="page-map-container">
 		<el-aside
 			:style="{
-				width: isCollapse ? '30%' : '50%',
+				width: isCollapse ? '40%' : '60%',
 			}"
 			class="page-map-container__aside"
 		>
 			<el-space fill direction="vertical" class="page-map-container__aside-left">
-				<div>123</div>
-				<div>
-					<Map />
-				</div>
+				<el-row>
+					<el-col :span="20">123</el-col>
+					<el-col :span="4">456</el-col>
+				</el-row>
+				<Map />
 			</el-space>
 			<el-button @click="() => (isCollapse = !isCollapse)" class="page-map-container__collaspe_btn">
 				折叠/展开
@@ -38,6 +39,7 @@ const isCollapse = ref(true)
 </template>
 <style lang="less" scoped>
 .page-map-container {
+	overflow: auto;
 	::v-deep(.amap-container) {
 		height: 100% !important;
 	}
