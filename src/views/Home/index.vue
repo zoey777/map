@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import PageCover from './components/PageCover.vue'
-import PageIntro from './components/PageIntro.vue'
-import PageMap from './components/PageMap.vue'
+import PageCover from './PageCover/index.vue'
+import PageIntro from './PageIntro/index.vue'
+import PageMap from './PageMap/index.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { ElBacktop } from 'element-plus'
 import { ref } from 'vue'
