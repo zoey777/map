@@ -1,7 +1,13 @@
 <script setup lang="ts"></script>
 
 <template>
-	<RouterView />
+	<el-config-provider
+		:button="{
+			autoInsertSpace: true,
+		}"
+	>
+		<RouterView />
+	</el-config-provider>
 </template>
 
 <style lang="less">
@@ -14,6 +20,7 @@
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
+	font-family: PingFangSC-Regular;
 }
 
 html,

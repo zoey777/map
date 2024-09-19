@@ -1,0 +1,10 @@
+/* 苹方-简 常规体 */
+@font-face {
+    font-family: 'PingFangSC-Regular';
+    src: url('./PingFangSC-Regular.woff2') format('woff2');
+}
+/* 苹方-简 细 */
+@font-face {
+    font-family: 'PingFangSC-Thin';
+    src: url('./PingFangSC-Thin.woff2') format('woff2');
+}

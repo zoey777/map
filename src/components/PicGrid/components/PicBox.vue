@@ -35,12 +35,7 @@ const props = defineProps<{
 		line-height: 0;
 		transition: scale ease-in-out 0.15s;
 	}
-	&:hover {
-		img {
-			scale: 1.8;
-			z-index: 2;
-		}
-	}
+
 	&__mask {
 		overflow: hidden;
 		pointer-events: none;
@@ -50,6 +45,9 @@ const props = defineProps<{
 		width: 100%;
 		height: 100%;
 		transition: all ease-in-out 0.15s;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
 		&-selected {
 			&::after {

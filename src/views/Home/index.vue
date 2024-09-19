@@ -21,7 +21,7 @@ const handleNext = () => {
 		<SwiperSlide>
 			<PageIntro></PageIntro>
 		</SwiperSlide>
-		<SwiperSlide class="page page_map">
+		<SwiperSlide>
 			<PageMap></PageMap>
 		</SwiperSlide>
 		<ElBacktop @click="handleNext()" :visibilityHeight="0">next</ElBacktop>

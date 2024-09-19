@@ -17,6 +17,10 @@ const getElementInfo = (event: MouseEvent) => {
 }
 
 const handleMousedown = (event: MouseEvent) => {
+	if (event.button !== 0) {
+		return
+	}
+
 	const { picIndex } = getElementInfo(event)
 	if (!picIndex) {
 		recordMousedown(-1)
@@ -71,6 +75,7 @@ onUnmounted(() => {
 		display: grid;
 		grid-template-columns: repeat(30, 1fr);
 		grid-template-rows: repeat(10, 1fr);
+		gap: 2px;
 	}
 }
 </style>
