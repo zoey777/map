@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { ArrowRight, ArrowLeft } from '@element-plus/icons-vue'
 import Map from '@/components/Map/index.vue'
 import PicGrid from '@/components/PicGrid/index.vue'
@@ -24,9 +24,17 @@ const loadFeatures = () => {
 
 loadFeatures()
 
-const features = computed(() => {
-	return featureStore.featureList
-})
+const features = computed(() => featureStore.featureList)
+
+watch(
+	features,
+	(newVal, oldVal) => {
+		console.log('features改变', newVal, oldVal)
+	},
+	{
+		deep: true,
+	}
+)
 </script>
 
 <template>
@@ -45,6 +53,7 @@ const features = computed(() => {
 							<CustomSlider
 								v-for="item in features"
 								v-bind="item"
+								v-model:rangeValue="item.value"
 								:key="item.title.zh || item.title.en"
 							/>
 						</div>

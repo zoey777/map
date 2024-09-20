@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 export type FeatureType = {
 	title: WithI18nString<'zh' | 'en'>
 	tip: WithI18nString<'zh' | 'en'>
+	value: number
 	max?: number
 	min?: number
 }

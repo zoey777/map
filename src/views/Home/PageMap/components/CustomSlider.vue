@@ -7,6 +7,11 @@ import { useI18n } from 'vue-i18n'
 const props = defineProps<FeatureType>()
 const propRefs = toRefs(props)
 
+/** 选项框值 */
+const rangeValue = defineModel('rangeValue', {
+	type: Number,
+})
+
 const i18n = useI18n()
 const local = computed(() => i18n.locale.value)
 const tip = computed(() => {
@@ -39,7 +44,7 @@ const title = computed(() => {
 				</el-space>
 				<div class="container__slider">
 					<el-text class="slider__left-content">高</el-text>
-					<el-slider class="slider__bar" :max="props.max" :min="props.min" />
+					<el-slider class="slider__bar" :max="props.max" :min="props.min" v-model="rangeValue" />
 					<el-text class="slider__left-content">低</el-text>
 				</div>
 			</div>
