@@ -1,12 +1,32 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { ArrowRight, ArrowLeft } from '@element-plus/icons-vue'
 import Map from '@/components/Map/index.vue'
 import PicGrid from '@/components/PicGrid/index.vue'
-import CustomSlider from './components/customSlider.vue'
+import CustomSlider from './components/CustomSlider.vue'
+import { useFeatureStore } from '@/store/feature'
+
+const featureStore = useFeatureStore()
 
 // 是否折叠
 const isCollapse = ref(true)
+
+const loadFeatures = () => {
+	fetch(`/configs/features.json`)
+		.then(res => res.json())
+		.then(res => {
+			featureStore.initFeatureState(res)
+		})
+		.catch(() => {
+			console.error(`请检查features.json文件格式是否正确`)
+		})
+}
+
+loadFeatures()
+
+const features = computed(() => {
+	return featureStore.featureList
+})
 </script>
 
 <template>
@@ -22,12 +42,11 @@ const isCollapse = ref(true)
 					<div class="page-map-container__left-button-container-left">
 						<div class="title">街景搜索引擎 —— 香港站</div>
 						<div>
-							<CustomSlider title="标题" />
-							<CustomSlider title="标题" />
-							<CustomSlider title="标题" />
-							<CustomSlider title="标题" />
-							<CustomSlider title="标题" />
-							<CustomSlider title="标题" />
+							<CustomSlider
+								v-for="item in features"
+								v-bind="item"
+								:key="item.title.zh || item.title.en"
+							/>
 						</div>
 					</div>
 

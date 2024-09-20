@@ -7,6 +7,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import IconResolver from 'unplugin-icons/resolver'
+import copy from 'rollup-plugin-copy'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -30,6 +31,14 @@ export default defineConfig({
 				ElementPlusResolver(),
 			],
 		}),
+		copy({
+			targets: [
+				{
+					src: 'src/assets/configs',
+					dest: 'dist',
+				},
+			],
+		}),
 	],
 	resolve: {
 		alias: {
@@ -40,6 +49,11 @@ export default defineConfig({
 	css: {
 		preprocessorOptions: {
 			less: {},
+		},
+	},
+	build: {
+		rollupOptions: {
+			external: '/public/langs/index.js',
 		},
 	},
 })

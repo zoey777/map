@@ -6,7 +6,7 @@ import ELementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import 'swiper/css'
 import './assets/font/font.css'
-import i18n from './libs/i18n'
+import { getI18nPluginAsync } from './libs/i18n'
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -17,7 +17,11 @@ app.use(router)
 app.use(pinia)
 // 组件
 app.use(ELementPlus)
-// 本地化
-app.use(i18n)
 
-app.mount('#app')
+Promise.all([getI18nPluginAsync()])
+	.then(plugins => {
+		plugins.forEach(plugin => app.use(plugin))
+	})
+	.then(() => {
+		app.mount('#app')
+	})

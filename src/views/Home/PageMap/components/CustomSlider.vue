@@ -1,10 +1,21 @@
 <script setup lang="ts">
+import { FeatureType } from '@/store/feature'
 import { Warning } from '@element-plus/icons-vue'
+import { computed, toRefs } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-interface IProps {
-	title?: string
-}
-const props = defineProps<IProps>()
+const props = defineProps<FeatureType>()
+const propRefs = toRefs(props)
+
+const i18n = useI18n()
+const local = computed(() => i18n.locale.value)
+const tip = computed(() => {
+	return propRefs.tip.value[local.value as 'zh' | 'en'] || '[未配置语言]'
+})
+
+const title = computed(() => {
+	return propRefs.title.value[local.value as 'zh' | 'en'] || '[未配置语言]'
+})
 </script>
 
 <template>
@@ -19,14 +30,16 @@ const props = defineProps<IProps>()
 			<el-checkbox />
 			<div class="container__btn-box__right">
 				<el-space class="container__title">
-					<span>{{ props.title }}</span>
-					<el-icon>
-						<Warning />
-					</el-icon>
+					<span>{{ title }}</span>
+					<el-tooltip :content="tip">
+						<el-icon>
+							<Warning />
+						</el-icon>
+					</el-tooltip>
 				</el-space>
 				<div class="container__slider">
 					<el-text class="slider__left-content">高</el-text>
-					<el-slider class="slider__bar" :max="10000" :min="0" />
+					<el-slider class="slider__bar" :max="props.max" :min="props.min" />
 					<el-text class="slider__left-content">低</el-text>
 				</div>
 			</div>

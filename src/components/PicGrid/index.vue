@@ -57,7 +57,7 @@ onUnmounted(() => {
 			v-for="(item, index) in mapGridStore.renderCount"
 			:key="item"
 			:path="`/pics/${index}.jpg`"
-			:selected="allSelectedPicIndexData[index]"
+			:selected="Boolean(allSelectedPicIndexData[index])"
 			:data-pic-index="index"
 		/>
 	</div>
