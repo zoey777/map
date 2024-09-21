@@ -39,7 +39,6 @@
 		"lint-staged": "^15.2.9",
 		"prettier": "^3.3.3",
 		"recommended": "link:@vue/typescript/recommended",
-		"rollup-plugin-copy": "^3.5.0",
 		"typescript": "^5.5.4",
 		"typescript-eslint": "^8.2.0",
 		"unplugin-auto-import": "^0.18.2",

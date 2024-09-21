@@ -31,14 +31,6 @@ export default defineConfig({
 				ElementPlusResolver(),
 			],
 		}),
-		copy({
-			targets: [
-				{
-					src: 'src/assets/configs',
-					dest: 'dist',
-				},
-			],
-		}),
 	],
 	resolve: {
 		alias: {
