@@ -2,8 +2,10 @@
 import { useMapGridStore } from '@/store/mapGrid'
 import PicBox from './components/PicBox.vue'
 import { onMounted, onUnmounted, toRefs } from 'vue'
+import { useFeatureStore } from '@/store/feature'
 
 const mapGridStore = useMapGridStore()
+const featureStore = useFeatureStore()
 
 const { recordMousedown, recordMouseup, recordMousemove } = mapGridStore
 const { allSelectedPicIndexData } = toRefs(mapGridStore)
@@ -58,6 +60,7 @@ onUnmounted(() => {
 			:key="item"
 			:path="`/pics/${index}.jpg`"
 			:selected="Boolean(allSelectedPicIndexData[index])"
+			:featureSelected="featureStore.includedIds.includes(index)"
 			:data-pic-index="index"
 		/>
 	</div>
@@ -75,7 +78,7 @@ onUnmounted(() => {
 		display: grid;
 		grid-template-columns: repeat(30, 1fr);
 		grid-template-rows: repeat(10, 1fr);
-		gap: 2px;
+		gap: 0;
 	}
 }
 </style>

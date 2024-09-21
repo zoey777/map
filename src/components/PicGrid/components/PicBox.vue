@@ -2,6 +2,7 @@
 const props = defineProps<{
 	path: string
 	selected: boolean
+	featureSelected: boolean
 }>()
 </script>
 <template>
@@ -33,9 +34,14 @@ const props = defineProps<{
 		pointer-events: none;
 		font-size: 0;
 		line-height: 0;
-		transition: scale ease-in-out 0.15s;
+		transition: scale ease-in-out 0.05s;
 	}
 
+	&:hover {
+		img {
+			scale: 1.8;
+		}
+	}
 	&__mask {
 		overflow: hidden;
 		pointer-events: none;
@@ -43,7 +49,6 @@ const props = defineProps<{
 		left: 0;
 		width: 100%;
 		height: 100%;
-		transition: all ease-in-out 0.15s;
 		display: flex;
 		justify-content: center;
 		align-items: center;

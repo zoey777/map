@@ -11,20 +11,9 @@ const featureStore = useFeatureStore()
 // 是否折叠
 const isCollapse = ref(true)
 
-const loadFeatures = () => {
-	fetch(`/configs/features.json`)
-		.then(res => res.json())
-		.then(res => {
-			featureStore.initFeatureState(res)
-		})
-		.catch(() => {
-			console.error(`请检查features.json文件格式是否正确`)
-		})
-}
+featureStore.initFeatureState()
 
-loadFeatures()
-
-const features = computed(() => featureStore.featureList)
+const features = computed(() => featureStore.featureConfigs)
 
 watch(
 	features,

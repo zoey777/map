@@ -9,6 +9,9 @@
             "en": "test2"
         },
         "max": 1,
-        "min": 0
+        "min": 0,
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_1"
     }
 ]
