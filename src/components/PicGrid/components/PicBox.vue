@@ -39,7 +39,6 @@ const props = defineProps<{
 	&__mask {
 		overflow: hidden;
 		pointer-events: none;
-		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;

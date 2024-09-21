@@ -21,7 +21,7 @@ export const useMapGridStore = defineStore('map', {
 			this.currentMouseIndex = index
 		},
 		recordMousemove(index: number) {
-			if (this.isMousedown) {
+			if (this.isMousedown && this.startMouseIndex !== -1) {
 				this.currentMouseIndex = index
 			}
 		},
@@ -77,7 +77,7 @@ export const useMapGridStore = defineStore('map', {
 
 			for (let i = startColumnIndex; i <= endColumnIndex; i++) {
 				for (let j = startRowIndex; j <= endRowIndex; j++) {
-					arr.push(j * this.renderRow + i)
+					arr.push(Math.max(0, j) * this.renderRow + i)
 				}
 			}
 
