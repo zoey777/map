@@ -1,10 +1,13 @@
-/* 苹方-简 常规体 */
+/* 苹方 */
 @font-face {
-    font-family: 'PingFangSC-Regular';
-    src: url('./PingFangSC-Regular.woff2') format('woff2');
+    font-family: 'PingFang';
+    src: url('./PingFangSC Thin.ttc') format('truetype');
+
 }
-/* 苹方-简 细 */
+
+/* 苹方 */
 @font-face {
-    font-family: 'PingFangSC-Thin';
-    src: url('./PingFangSC-Thin.woff2') format('woff2');
+    font-family: 'BigShouldersInlineText-Black';
+    src: url('./BigShouldersInlineText-Black.ttf') format('truetype');
+
 }

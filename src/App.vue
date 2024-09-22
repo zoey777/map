@@ -11,8 +11,8 @@
 </template>
 
 <style lang="less">
-@import '@/styles/vars.less';
-@import '@/styles/global.less';
+@import './styles/vars.less';
+@import './styles/global.less';
 
 * {
 	margin: 0;
@@ -20,7 +20,6 @@
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-	font-family: PingFangSC-Regular;
 }
 
 html,
@@ -30,5 +29,15 @@ body,
 	height: 100%;
 	background-color: @bg;
 	overflow: hidden;
+}
+
+body {
+	font:
+		14px Helvetica Neue,
+		Helvetica,
+		PingFang SC,
+		Tahoma,
+		Arial,
+		sans-serif;
 }
 </style>

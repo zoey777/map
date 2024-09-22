@@ -37,15 +37,13 @@ watch(
 			<div class="page-map-container__aside-left">
 				<div class="page-map-container__left-button-container">
 					<div class="page-map-container__left-button-container-left">
-						<div class="title">街景搜索引擎 —— 香港站</div>
-						<div>
-							<CustomSlider
-								v-for="item in features"
-								v-bind="item"
-								v-model:rangeValue="item.value"
-								:key="item.title.zh || item.title.en"
-							/>
-						</div>
+						<div class="title">街 景 搜 索 引 擎 — 香 港 站</div>
+						<CustomSlider
+							v-for="item in features"
+							v-bind="item"
+							v-model:rangeValue="item.value"
+							:key="item.title.zh || item.title.en"
+						/>
 					</div>
 
 					<el-space class="page-map-container__left-button-container-right" direction="vertical" size="small">
@@ -120,11 +118,13 @@ watch(
 			padding-left: 8px;
 			// 标题
 			.title {
+				padding-top: 20px;
 				margin-bottom: 12px;
 				width: 100%;
 				text-align: center;
-				font-size: 30px;
-				font-family: PingFangSC-Thin;
+				font-size: 25px;
+				font-weight: lighter;
+				font-family: 'PingFang';
 			}
 		}
 		&-right {

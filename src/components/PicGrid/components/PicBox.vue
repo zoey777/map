@@ -1,9 +1,15 @@
 <script lang="ts" setup>
+import { computed, ref } from 'vue'
+
 const props = defineProps<{
 	path: string
 	selected: boolean
 	featureSelected: boolean
 }>()
+
+const borderWidth = ref(2)
+const border = computed(() => `${borderWidth.value}px`)
+const size = computed(() => `calc(100% - ${borderWidth.value * 2}px)`)
 </script>
 <template>
 	<div class="pic-box">
@@ -59,9 +65,9 @@ const props = defineProps<{
 				position: absolute;
 				left: 0;
 				top: 0;
-				border: 4px solid #fc9628;
-				width: calc(100% - 8px);
-				height: calc(100% - 8px);
+				border: v-bind(border) solid #fc9628;
+				width: v-bind(size);
+				height: v-bind(size);
 			}
 		}
 	}

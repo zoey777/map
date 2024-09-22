@@ -36,7 +36,8 @@ const checked = computed({
 	<div class="container" shadow="hover">
 		<el-divider
 			:style="{
-				margin: '4px 0 ',
+				padding: '8px 0 0 0',
+				margin: '4px 0',
 			}"
 		/>
 
@@ -52,7 +53,7 @@ const checked = computed({
 					</el-tooltip>
 				</el-space>
 				<div class="container__slider">
-					<el-text class="slider__left-content">高</el-text>
+					<el-text class="slider__left-content">低</el-text>
 					<el-slider
 						class="slider__bar"
 						v-model="rangeValue"
@@ -61,7 +62,7 @@ const checked = computed({
 						:formatTooltip="val => val / MULTIPLE"
 						range
 					/>
-					<el-text class="slider__left-content">低</el-text>
+					<el-text class="slider__left-content">高</el-text>
 				</div>
 			</div>
 		</div>
