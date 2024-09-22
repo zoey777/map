@@ -28,7 +28,9 @@ export const useMapGridStore = defineStore('map', {
 		recordMouseup() {
 			// 判断如果开始和结束是相同索引，则反选
 			if (this.startMouseIndex === this.currentMouseIndex) {
-				this.selectedIndexMap[this.startMouseIndex] = !this.selectedIndexMap[this.startMouseIndex]
+				if (this.startMouseIndex >= 0) {
+					this.selectedIndexMap[this.startMouseIndex] = !this.selectedIndexMap[this.startMouseIndex]
+				}
 			} else {
 				// 存储本次选中的元素
 				this.selectedIndexData.picIndexSelectedIndexArr.forEach(index => {
@@ -94,6 +96,14 @@ export const useMapGridStore = defineStore('map', {
 			Object.assign(tempMap, this.selectedIndexMap)
 			Object.assign(tempMap, this.selectedIndexData.picIndexSelectedMap)
 			return tempMap
+		},
+		/** 选中的ids */
+		selectedIds() {
+			return Object.entries(this.allSelectedPicIndexData)
+				.filter(item => {
+					return item[1]
+				})
+				.map(item => Number(item[0]))
 		},
 	},
 })

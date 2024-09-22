@@ -112,7 +112,7 @@ export const useFeatureStore = defineStore('feature', {
 	},
 	getters: {
 		/**
-		 * 获取处于勾选，并且滑块满足数据的点
+		 * 获取滑块范围内的点
 		 */
 		includedIds() {
 			const featureConfigList = this.featureConfigs as FeatureType[]
@@ -137,21 +137,6 @@ export const useFeatureStore = defineStore('feature', {
 			})
 
 			return _.intersection<number>(...ids)
-		},
-		// 当前选中滑块中包含的点，点下面所包含的坐标
-		coordinateList() {
-			const ids: number[] = this.includedIds
-			const data: CoordinateDataType = this.coordinateData
-
-			const coordinates = ids
-				.map(id => {
-					return data[id] as [number, number][]
-				})
-				.reduce((pre, cur) => {
-					return pre.concat(cur)
-				}, [])
-
-			return coordinates
 		},
 	},
 })

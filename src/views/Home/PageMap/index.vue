@@ -5,8 +5,11 @@ import Map from '@/components/Map/index.vue'
 import PicGrid from '@/components/PicGrid/index.vue'
 import CustomSlider from './components/CustomSlider.vue'
 import { useFeatureStore } from '@/store/feature'
+import useOutStore from '@/store/out'
 
 const featureStore = useFeatureStore()
+const outStore = useOutStore()
+const mapRef = ref<any>(null)
 
 // 是否折叠
 const isCollapse = ref(true)
@@ -14,6 +17,11 @@ const isCollapse = ref(true)
 featureStore.initFeatureState()
 
 const features = computed(() => featureStore.featureConfigs)
+
+/** 寻址 */
+const findLocation = () => {
+	mapRef.value.markPoint(outStore.selectedCoordinated)
+}
 </script>
 
 <template>
@@ -37,12 +45,12 @@ const features = computed(() => featureStore.featureConfigs)
 					</div>
 
 					<el-space class="page-map-container__left-button-container-right" direction="vertical" size="small">
-						<el-button>寻址</el-button>
+						<el-button @click="findLocation">寻址</el-button>
 						<el-button>寻址</el-button>
 					</el-space>
 				</div>
 				<div class="page-map-container__left-map-container">
-					<Map />
+					<Map ref="mapRef" />
 				</div>
 			</div>
 			<div @click="() => (isCollapse = !isCollapse)" class="page-map-container__collaspe_btn">
