@@ -9,6 +9,8 @@ const featureStore = useFeatureStore()
 
 const { recordMousedown, recordMouseup, recordMousemove } = mapGridStore
 const { allSelectedPicIndexData } = toRefs(mapGridStore)
+const { includedIds } = toRefs(featureStore)
+
 /** 获取点击元素的数据属性 */
 const getElementInfo = (event: MouseEvent) => {
 	const element = event.target as HTMLElement
@@ -60,6 +62,7 @@ onUnmounted(() => {
 			:key="item"
 			:path="`/pics/${index}.jpg`"
 			:selected="Boolean(allSelectedPicIndexData[index])"
+			:featureSelectd="includedIds.includes(index)"
 			:featureSelected="featureStore.includedIds.includes(index)"
 			:data-pic-index="index"
 		/>

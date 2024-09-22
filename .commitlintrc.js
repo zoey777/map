@@ -38,28 +38,7 @@ module.exports = {
 			{ value: 'revert', name: '回退:     回滚 commit' },
 			{ value: 'other', name: '其他:     对构建过程或辅助工具和库的更改（不影响源文件、测试用例）' },
 		],
-		scopes: [
-			{
-				value: 'config',
-				name: 'config:    项目配置文件',
-			},
-			{
-				value: 'construct',
-				name: 'construct:    修改项目结构',
-			},
-			{
-				value: 'script',
-				name: 'script:   修改脚本',
-			},
-			{
-				value: 'lib',
-				name: 'lib:  修改依赖',
-			},
-			{
-				value: 'project',
-				name: '项目整体',
-			},
-		],
+		scopes: [],
 		markBreakingChangeMode: false,
 		allowBreakingChanges: ['feat', 'fix'],
 		breaklineNumber: 100,

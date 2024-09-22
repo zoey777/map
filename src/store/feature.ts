@@ -138,5 +138,20 @@ export const useFeatureStore = defineStore('feature', {
 
 			return _.intersection<number>(...ids)
 		},
+		// 当前选中滑块中包含的点，点下面所包含的坐标
+		coordinateList() {
+			const ids: number[] = this.includedIds
+			const data: CoordinateDataType = this.coordinateData
+
+			const coordinates = ids
+				.map(id => {
+					return data[id] as [number, number][]
+				})
+				.reduce((pre, cur) => {
+					return pre.concat(cur)
+				}, [])
+
+			return coordinates
+		},
 	},
 })

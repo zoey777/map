@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import { ArrowRight, ArrowLeft } from '@element-plus/icons-vue'
 import Map from '@/components/Map/index.vue'
 import PicGrid from '@/components/PicGrid/index.vue'
@@ -14,16 +14,6 @@ const isCollapse = ref(true)
 featureStore.initFeatureState()
 
 const features = computed(() => featureStore.featureConfigs)
-
-watch(
-	features,
-	(newVal, oldVal) => {
-		console.log('features改变', newVal, oldVal)
-	},
-	{
-		deep: true,
-	}
-)
 </script>
 
 <template>
