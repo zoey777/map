@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import { useConfigStore } from '@/store/config'
 import { FeatureType, MULTIPLE, useFeatureStore } from '@/store/feature'
 import { Warning } from '@element-plus/icons-vue'
 import _ from 'lodash'
 import { computed, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+const configStore = useConfigStore()
 const featureStore = useFeatureStore()
-
 const props = defineProps<FeatureType>()
 const propRefs = toRefs(props)
 const emit = defineEmits(['checkFeature'])
@@ -37,6 +38,7 @@ const checked = computed({
 const changeSlider = _.debounce(() => {
 	// 开启立即寻址才会触发
 	emit('checkFeature')
+	configStore
 }, 300)
 </script>
 
