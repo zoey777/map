@@ -9,6 +9,11 @@ import useOutStore from '@/store/out'
 import { useMapGridStore } from '@/store/mapGrid'
 import _ from 'lodash'
 import { CheckboxValueType } from 'element-plus'
+import ChangePage from '@/components/ChangePage/index.vue'
+
+const emit = defineEmits(['prevPage', 'nextPage'])
+
+const isPicTextCollapse = ref(true)
 
 const featureStore = useFeatureStore()
 const mapGridStore = useMapGridStore()
@@ -69,6 +74,10 @@ const changeCheckbox = (val: CheckboxValueType, key: string) => {
 const checkFeature = () => {
 	findLocation()
 }
+
+const handlePicTextCollapse = () => {
+	isPicTextCollapse.value = !isPicTextCollapse.value
+}
 </script>
 
 <template>
@@ -90,6 +99,7 @@ const checkFeature = () => {
 							:key="item.title.zh || item.title.en"
 							@checkFeature="checkFeature"
 						/>
+						<ElDivider />
 						<ElRow v-for="item in poiKeysRow" :key="`${item[0]}${item[1]}`">
 							<ElCol :span="12" v-for="key in item" :key="key">
 								<ElCheckbox
@@ -100,6 +110,7 @@ const checkFeature = () => {
 								</ElCheckbox>
 							</ElCol>
 						</ElRow>
+						<ElDivider />
 					</div>
 
 					<el-space class="page-map-container__left-button-container-right" direction="vertical" size="small">
@@ -123,13 +134,60 @@ const checkFeature = () => {
 				</el-button>
 			</div>
 		</el-aside>
+		<ElDivider
+			direction="vertical"
+			:style="{
+				height: 0,
+			}"
+		/>
 		<el-container>
 			<el-main
 				:style="{
 					'justify-content': 'center',
+					'background-color': '#fff',
 				}"
 			>
-				<PicGrid />
+				<ElSpace class="pic-map-container" direction="vertical" alignment="flex-end">
+					<ChangePage direction="prev" @click="emit('prevPage')" />
+					<div class="pic-map-container__text">
+						<p>
+							以下“特征地图”通过分析街景中纹理、形状、颜色，将香港全境街景按“视觉感知相似性”重新排列。
+							相较于“地理地图”，“特征地图”是一种全新的城市形象呈现逻辑。因此，我们对城市形象的探索将变得更加灵活与有趣！现在，你可以尝试以下操作来进行街景信息的搜索：
+						</p>
+						<template v-if="isPicTextCollapse">
+							<ElDivider />
+							<p>1. 寻址：根据街景，迅速定位其在城市中的地理位置。</p>
+							<p>
+								·
+								拖动左边的量值滑动条，看看“纹理”、“形状”、“颜色”的视觉复杂度变化，会在特征地图中形成怎样的街景？点击左侧“寻址”按键，进一步发现这些街景在“地理地图”中的分布。
+								这项操作可应用于：城市色彩研究或艺术家寻找城市中色彩组合丰富的场址，城市驾驶导航中选择视觉体验简洁的道路，等场景。
+								·
+								按照你的喜好与想法，在“特征地图”中选择街景，点击“寻址”，发现这些街景在“地理地图”中分布。
+								这项操作可应用于：城市热岛效应研究中定位城市高密度建筑街区，旅游者在城市中搜寻自然风光地带，等场景。
+							</p>
+							<p>2. 寻景：根据地理位置，了解其所包含街景的类型与特征。</p>
+							<p>
+								·
+								在“地理地图”中以多段线选择目标区域位置，点击“寻景”，“特征地图”中便以颜色标记的热力图表示区域内街景的组成类型与数量，颜色越深表明此类型街景越多。这项操作可应用于：某区域街景形象的快速审计、区域内街景环境的异质性评估，街道视觉感受的节奏控制，等场景。
+								“隐藏/显示”按键有助于更方便的查看对应街景类型。
+							</p>
+							<p>3. 地景关系：以色彩标记连接城市“特征地图”与“地理地图”，展现城市街景分布特征。</p>
+							<p>
+								·
+								点击“地景关系”，“特征地图”被色谱标记，细粒度区分不同街景类型；同时，“地理地图”中相应以色彩点展示了城市街景分布。“隐藏/显示”按键有助于更方便的查看对应街景类型。
+							</p>
+						</template>
+						<ElButton
+							:style="{
+								width: '100%',
+							}"
+							@click="handlePicTextCollapse"
+						>
+							- 展开/折叠 -
+						</ElButton>
+					</div>
+					<PicGrid />
+				</ElSpace>
 			</el-main>
 		</el-container>
 	</el-container>
@@ -139,18 +197,18 @@ const checkFeature = () => {
 	height: 100%;
 	padding: 4px;
 	overflow: auto;
+
 	::v-deep(.amap-container) {
 		height: 100% !important;
 	}
 
 	position: relative;
 	&__aside {
-		width: 200px;
+		min-width: 375px !important;
 		transition: all 0.5s ease-in-out;
 		position: relative;
 		z-index: 2;
 		overflow: visible;
-		min-width: 280px;
 
 		&-left {
 			width: 100%;
@@ -164,7 +222,7 @@ const checkFeature = () => {
 	// 左侧按钮容器
 	&__left-button-container {
 		border-radius: 4px;
-		padding: 4px;
+		padding: 8px 4px;
 		width: 100%;
 		display: flex;
 		height: 52%;
@@ -189,6 +247,10 @@ const checkFeature = () => {
 		&-right {
 			overflow: auto;
 			justify-content: center;
+			padding: 0 10px;
+			::v-deep(.el-space__item) {
+				width: 100%;
+			}
 		}
 	}
 
@@ -203,6 +265,23 @@ const checkFeature = () => {
 		right: 0;
 		z-index: 3;
 		width: fit-content;
+	}
+}
+
+.pic-map-container {
+	&__text {
+		p {
+			padding-top: 5px;
+			padding-bottom: 5px;
+			display: flex;
+			justify-content: left;
+			align-items: center;
+			line-height: 28px;
+			font-size: 15px;
+			font-family: 'PingFang';
+			text-align: justify;
+			color: #444444;
+		}
 	}
 }
 </style>
