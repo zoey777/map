@@ -7,7 +7,7 @@ const props = defineProps<{
 	selected: boolean
 	featureSelected: boolean
 	streetScapeProperty: StreetScapeType | null
-	groundStreetColorRGB: string
+	groundStreetColorRGB: string | null
 }>()
 
 const selectedValue = ref(2)
@@ -21,7 +21,7 @@ const featureSelectedSize = computed(() => `calc(100% - ${featureValue.value * 2
 const streetScapeOpacity = computed(() => props.streetScapeProperty?.opacity || 0)
 
 /** 地景关系rgb */
-const groundStreetscapeColor = computed(() => props.groundStreetColorRGB)
+const groundStreetscapeColor = computed(() => props?.groundStreetColorRGB)
 </script>
 <template>
 	<div class="pic-box">
@@ -38,7 +38,10 @@ const groundStreetscapeColor = computed(() => props.groundStreetColorRGB)
 				v-show="props.streetScapeProperty"
 				class="pic-box__container__mask pic-box__container__mask--streetscape"
 			></div>
-			<div class="pic-box__container__mask pic-box__container__mask--groundstreetscape"></div>
+			<div
+				v-show="props.groundStreetColorRGB"
+				class="pic-box__container__mask pic-box__container__mask--groundstreetscape"
+			></div>
 			<img :src="props.path" />
 		</div>
 	</div>
@@ -124,6 +127,7 @@ const groundStreetscapeColor = computed(() => props.groundStreetColorRGB)
 			&--groundstreetscape {
 				z-index: 7;
 				&::after {
+					opacity: 0.5;
 					background-color: v-bind(groundStreetscapeColor);
 					width: 100%;
 					height: 100%;

@@ -35,6 +35,7 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 
 	let map: any = null
 	let AMap: any = null
+	let mouseTool: any = null
 	let labelsLayer: any = null
 	let groundStreetLabelsLayer: any = null
 	const labelMarkerList: any = []
@@ -132,7 +133,7 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 
 	/** 绘制多边形 */
 	const pluginMouseTool = async (map: any) => {
-		const mouseTool = await new AMap.MouseTool(map)
+		mouseTool = await new AMap.MouseTool(map)
 
 		mouseTool.polygon({
 			strokeColor: '#FF33FF', //轮廓线颜色
@@ -203,6 +204,14 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 		map && map.destroy()
 	}
 
+	/** 清除地图内容 */
+	const clear = () => {
+		labelsLayer.clear()
+		groundStreetLabelsLayer.clear()
+		mouseTool.close(true)
+		pluginMouseTool(map)
+	}
+
 	return {
 		init,
 		load,
@@ -210,5 +219,6 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 		destroy,
 		markPoint,
 		markGroundStreetscape,
+		clear,
 	}
 }

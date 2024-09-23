@@ -27,7 +27,8 @@ const defaultState = {
 	checkedFeatureList: [] as string[],
 	/** 地景关系rgb */
 	groundStreetscapeColor: {} as Record<string, [number, number, number]>,
-	isInit: false,
+	/** 是否展示地景关系  */
+	isGroundStreetScapeOn: false,
 }
 
 /** 滑块value的倍率显示。值乘以MUlTIPLE, 展示的时候除以MULTIPLE */
@@ -93,16 +94,19 @@ export const useFeatureStore = defineStore('feature', {
 				}
 			}
 		},
+		setGroundStreetscapeColorOn() {
+			this.isGroundStreetScapeOn = !this.isGroundStreetScapeOn
+		},
 		async initFeatureState() {
 			//获取config文件
-			const featureConfigs: FeatureType[] = await getFeatureConfig()
+			const rawConfigs = await getFeatureConfig()
 			// 获取data文件
 			this.coordinateData = await getCoordinateData()
 			this.featureData = await getFeatureData()
 			this.groundStreetscapeColor = await getGroundStreetscapeColor()
 
 			this.featureConfigs.splice(0)
-			this.featureConfigs = featureConfigs.map(config => {
+			this.featureConfigs = rawConfigs.map(config => {
 				const max = getMultipleVal(config.max ?? 1, true)
 				const min = getMultipleVal(config.min ?? 1, true)
 				const defaultMin = getMultipleVal(config.defaultMin || 0.4, true)
@@ -118,8 +122,15 @@ export const useFeatureStore = defineStore('feature', {
 					dataIndex: config.dataIndex,
 				}
 			})
+		},
 
-			this.isInit = true
+		async clear() {
+			// 隐藏地景关系
+			this.isGroundStreetScapeOn = false
+			// 清空勾选
+			this.checkedFeatureList.splice(0)
+			// 清空滑块
+			await this.initFeatureState()
 		},
 	},
 	getters: {

@@ -7,7 +7,7 @@ import { StreetScapeType, useMapGridStore } from '@/store/mapGrid'
 const featureStore = useFeatureStore()
 const mapGridStore = useMapGridStore()
 const containerRef = ref<HTMLElement | null>(null)
-const { init, destroy, loading, load, markPoint, markGroundStreetscape } = useMap(SUPPORTED_CITY['香港'], {
+const { init, destroy, loading, load, markPoint, markGroundStreetscape, clear } = useMap(SUPPORTED_CITY['香港'], {
 	onDraw: {
 		callback(containsFn: (point: [number, number]) => boolean) {
 			const coordinateData = featureStore.coordinateData
@@ -38,6 +38,7 @@ onUnmounted(() => {
 defineExpose({
 	markPoint,
 	markGroundStreetscape,
+	clear,
 })
 </script>
 

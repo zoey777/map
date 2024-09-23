@@ -40,10 +40,16 @@ const switchVisible = () => {
 
 /** 地景关系 */
 const turnOnGroundStreetScape = () => {
-	mapRef.value && mapRef.value.markGroundStreetscape(Object.entries(featureStore.groundStreetscapeColor))
+	mapRef.value?.markGroundStreetscape(Object.entries(featureStore.groundStreetscapeColor))
+	featureStore.setGroundStreetscapeColorOn()
 }
 
-const clear = () => {}
+/** 清空 */
+const clear = () => {
+	mapGridStore.clear()
+	featureStore.clear()
+	mapRef.value?.clear()
+}
 </script>
 
 <template>

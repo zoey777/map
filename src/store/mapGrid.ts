@@ -78,6 +78,17 @@ export const useMapGridStore = defineStore('map', {
 				this.isStreetScapeOn = turnOn
 			}
 		},
+		clear() {
+			// 清除点选图片列表
+			this.selectedIndexMap = {}
+			// 清除寻景
+			this.preStreetScapeList.splice(0)
+			this.streetScapeList.splice(0)
+			this.isStreetScapeOn = false
+			// 清除鼠标记录
+			this.startMouseIndex = -1
+			this.currentMouseIndex = -1
+		},
 	},
 	getters: {
 		/** 本次鼠标事件，选中的元素 */
