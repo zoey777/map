@@ -40,7 +40,10 @@ const switchVisible = () => {
 
 /** 地景关系 */
 const turnOnGroundStreetScape = () => {
-	mapRef.value?.markGroundStreetscape(Object.entries(featureStore.groundStreetscapeColor))
+	mapRef.value?.markGroundStreetscape(
+		Object.entries(featureStore.groundStreetscapeColor),
+		featureStore.coordinateData
+	)
 	featureStore.setGroundStreetscapeColorOn()
 }
 

@@ -1,3 +1,4 @@
+import { CoordinateDataType } from '@/store/feature'
 import genSVG from '@/tools/genSVG'
 import AMapLoader from '@amap/amap-jsapi-loader'
 import { Ref, ref } from 'vue'
@@ -152,7 +153,7 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 	}
 
 	/** 在地图中标记默认选中图片后的点 */
-	const markPoint = (coordinateList: [number, number][]) => {
+	const markPoint = (coordinateList: LngLat[]) => {
 		labelMarkerList.forEach((marker: any) => {
 			marker.remove()
 		})
@@ -176,25 +177,33 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 		labelsLayer.add(labelMarkerList)
 	}
 
-	const markGroundStreetscape = (rgbList: [LngLat, [number, number, number]][]) => {
+	const markGroundStreetscape = (
+		rgbList: [string, [number, number, number]][],
+		coordinateData: CoordinateDataType
+	) => {
 		groundStreetscapeLabelMarkerList.forEach((marker: any) => {
 			marker.remove()
 		})
 		groundStreetscapeLabelMarkerList.splice(0)
 
-		const markers = rgbList.map(item => {
-			const [r, g, b] = item[1]
-			return new AMap.LabelMarker({
-				position: item[0],
-				icon: {
-					type: 'image',
-					image: genSVG(`rgb(${r},${g},${b})`),
-					size: [1, 1],
-					alwaysRender: false,
-					anchor: 'bottom-center',
-				},
+		const markers = rgbList
+			.map(item => {
+				const points = coordinateData[item[0]]
+				return points.map(point => {
+					const [r, g, b] = item[1]
+					return new AMap.LabelMarker({
+						position: [point[1], point[0]],
+						icon: {
+							type: 'image',
+							image: genSVG(`rgb(${r},${g},${b})`),
+							size: [1, 1],
+							alwaysRender: false,
+							anchor: 'bottom-center',
+						},
+					})
+				})
 			})
-		})
+			.reduce((pre, cur) => pre.concat(cur), [])
 
 		groundStreetscapeLabelMarkerList.push(...markers)
 		groundStreetLabelsLayer.add(groundStreetscapeLabelMarkerList)
