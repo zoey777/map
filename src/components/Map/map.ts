@@ -159,10 +159,9 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 		})
 		labelMarkerList.splice(0)
 
-		const markers = coordinateList.map(item => {
-			const position = [item[1], item[0]]
+		const markers = coordinateList.map(lnglat => {
 			return new AMap.LabelMarker({
-				position,
+				position: lnglat,
 				icon: {
 					type: 'image',
 					image: genSVG('#ffda05'),
@@ -189,10 +188,10 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 		const markers = rgbList
 			.map(item => {
 				const points = coordinateData[item[0]]
-				return points.map(point => {
+				return points.map(lnglat => {
 					const [r, g, b] = item[1]
 					return new AMap.LabelMarker({
-						position: [point[1], point[0]],
+						position: lnglat,
 						icon: {
 							type: 'image',
 							image: genSVG(`rgb(${r},${g},${b})`),

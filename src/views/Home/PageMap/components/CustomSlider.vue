@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { FeatureType, MULTIPLE, useFeatureStore } from '@/store/feature'
 import { Warning } from '@element-plus/icons-vue'
+import _ from 'lodash'
 import { computed, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -8,7 +9,7 @@ const featureStore = useFeatureStore()
 
 const props = defineProps<FeatureType>()
 const propRefs = toRefs(props)
-
+const emit = defineEmits(['checkFeature'])
 /** 选项框值 */
 const rangeValue = defineModel<[number, number]>('rangeValue')
 
@@ -28,8 +29,15 @@ const checked = computed({
 	},
 	set(newValue) {
 		featureStore.setCheckedStatus(props.dataIndex, newValue)
+		// 开启立即寻址才会触发
+		emit('checkFeature')
 	},
 })
+
+const changeSlider = _.debounce(() => {
+	// 开启立即寻址才会触发
+	emit('checkFeature')
+}, 300)
 </script>
 
 <template>
@@ -61,6 +69,7 @@ const checked = computed({
 						:min="props.min"
 						:formatTooltip="val => val / MULTIPLE"
 						range
+						@change="changeSlider"
 					/>
 					<el-text class="slider__left-content">高</el-text>
 				</div>

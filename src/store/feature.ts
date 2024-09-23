@@ -17,12 +17,24 @@ export type FeatureType = {
 
 export type CoordinateDataType = Record<string, [number, number][]>
 
+export type PoiDataType = Record<
+	string,
+	{
+		index: number
+		count: number
+	}[]
+>
+
 const defaultState = {
 	/** feature数据解析后的滑块渲染数据 */
 	featureConfigs: [] as FeatureType[],
 	featureData: {} as Record<string, number[]>,
 	/** 每个点对应features范围 */
 	coordinateData: {} as CoordinateDataType,
+	/** poi数据 */
+	poiData: {} as PoiDataType,
+	/** 被勾选的poi的key */
+	selectedPoiKeys: [] as string[],
 	/** 被勾选的feature */
 	checkedFeatureList: [] as string[],
 	/** 地景关系rgb */
@@ -54,6 +66,12 @@ const getFeatureData = async () => {
 		'请检查features_data.json文件格式是否正确'
 	)
 }
+
+/** 获取pois相关配置 */
+const getPoiData = async () => {
+	return await asyncFetchPublicJson<PoiDataType>('/data/pois.json', '请检查pois.json文件格式是否正确')
+}
+
 /** 获取feature对应范围数据 */
 const getCoordinateData = async () => {
 	return await asyncFetchPublicJson<CoordinateDataType>('/data/coordinate.json')
@@ -104,6 +122,7 @@ export const useFeatureStore = defineStore('feature', {
 			this.coordinateData = await getCoordinateData()
 			this.featureData = await getFeatureData()
 			this.groundStreetscapeColor = await getGroundStreetscapeColor()
+			this.poiData = await getPoiData()
 
 			this.featureConfigs.splice(0)
 			this.featureConfigs = rawConfigs.map(config => {
@@ -129,11 +148,33 @@ export const useFeatureStore = defineStore('feature', {
 			this.isGroundStreetScapeOn = false
 			// 清空勾选
 			this.checkedFeatureList.splice(0)
+			this.selectedPoiKeys.splice(0)
 			// 清空滑块
 			await this.initFeatureState()
 		},
+
+		checkPoi(poiKey: string, isCheck: boolean) {
+			if (isCheck) {
+				if (this.selectedPoiKeys.includes(poiKey)) return
+				this.selectedPoiKeys.push(poiKey)
+			} else {
+				if (!this.selectedPoiKeys.includes(poiKey)) return
+				const index = this.selectedPoiKeys.findIndex(item => item === poiKey)
+				if (index !== -1) {
+					this.selectedPoiKeys.splice(index, 1)
+				}
+			}
+		},
 	},
 	getters: {
+		/**
+		 *  所有的街景点
+		 * @returns
+		 */
+		allCoordinates() {
+			const data: CoordinateDataType = this.coordinateData
+			return Object.values(data).reduce((pre, cur) => pre.concat(cur), [])
+		},
 		/**
 		 * 获取滑块范围内的点
 		 */
@@ -161,6 +202,10 @@ export const useFeatureStore = defineStore('feature', {
 
 			return _.intersection<number>(...ids)
 		},
+		/**
+		 * 地景关系的rgb值
+		 * @returns
+		 */
 		groundStreetscapeColorRGB() {
 			const rgbDatas = this.groundStreetscapeColor as Record<string, [number, number, number]>
 			const rgbObject: Record<string, string> = {}
@@ -168,6 +213,24 @@ export const useFeatureStore = defineStore('feature', {
 				rgbObject[key] = `rgb(${r},${g},${b})`
 			})
 			return rgbObject
+		},
+		poiKeys() {
+			const data = this.poiData as PoiDataType
+			return Object.keys(data)
+		},
+		/**
+		 * poi对应的坐标点
+		 */
+		poiDataPoints() {
+			const keys = this.selectedPoiKeys as string[]
+			const poiData = this.poiData as PoiDataType
+			const allCoordinates = this.allCoordinates as [number, number][]
+
+			const data = keys.map(item => {
+				return poiData[item].map(poi => allCoordinates[poi.index]).filter(item => item)
+			})
+
+			return _.intersectionBy(...data, item => `[${item[0]},${item[1]}]`)
 		},
 	},
 })

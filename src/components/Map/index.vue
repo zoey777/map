@@ -13,7 +13,7 @@ const { init, destroy, loading, load, markPoint, markGroundStreetscape, clear } 
 			const coordinateData = featureStore.coordinateData
 
 			const res: StreetScapeType[] = Object.entries(coordinateData).map(([key, value]) => {
-				const count = value.filter(item => containsFn([item[1], item[0]])).length
+				const count = value.filter(lnglat => containsFn(lnglat)).length
 				return {
 					picIndex: Number(key),
 					count,

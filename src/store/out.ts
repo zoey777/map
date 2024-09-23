@@ -10,7 +10,7 @@ const useOutStore = defineStore('out', () => {
 	const featureStore = useFeatureStore()
 
 	/**
-	 * 滑块范围和勾选的点,下面所包含的坐标
+	 * 根据图片id，获取id下面的街景点的坐标列表
 	 * @returns
 	 */
 	const getCoordinateListByIds = (..._ids: number[][]) => {
@@ -28,9 +28,22 @@ const useOutStore = defineStore('out', () => {
 		return coordinates
 	}
 
-	/** feature和selected的所有id, 获取id下的坐标点 */
+	/**
+	 * feature和selected的所有id, 获取id下的坐标点
+	 * poi 和feature、selected的点进行交集
+	 */
 	const selectedCoordinated = computed(() => {
-		return getCoordinateListByIds(mapGridStore.selectedIds, featureStore.includedIds)
+		const poiPoints = featureStore.poiDataPoints
+		const featurePoints = getCoordinateListByIds(mapGridStore.selectedIds, featureStore.includedIds)
+
+		if (featureStore.selectedPoiKeys.length === 0) {
+			return featurePoints
+		} else if (featureStore.checkedFeatureList.length === 0) {
+			return poiPoints
+		} else {
+			// 如果都不为空，则交集
+			return _.intersectionBy(featurePoints, poiPoints, item => `[${item[0]},${item[1]}]`)
+		}
 	})
 
 	return {

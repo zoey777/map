@@ -7,6 +7,8 @@ import CustomSlider from './components/CustomSlider.vue'
 import { useFeatureStore } from '@/store/feature'
 import useOutStore from '@/store/out'
 import { useMapGridStore } from '@/store/mapGrid'
+import _ from 'lodash'
+import { CheckboxValueType } from 'element-plus'
 
 const featureStore = useFeatureStore()
 const mapGridStore = useMapGridStore()
@@ -22,7 +24,7 @@ const features = computed(() => featureStore.featureConfigs)
 
 /** 寻址 */
 const findLocation = () => {
-	mapRef.value && mapRef.value.markPoint(outStore.selectedCoordinated)
+	mapRef.value?.markPoint(outStore.selectedCoordinated)
 }
 
 /**
@@ -53,6 +55,20 @@ const clear = () => {
 	featureStore.clear()
 	mapRef.value?.clear()
 }
+
+const poiKeysRow = computed(() => {
+	return _.chunk(featureStore.poiKeys, 2)
+})
+
+/** 点选poi */
+const changeCheckbox = (val: CheckboxValueType, key: string) => {
+	featureStore.checkPoi(key, Boolean(val))
+	findLocation()
+}
+
+const checkFeature = () => {
+	findLocation()
+}
 </script>
 
 <template>
@@ -72,7 +88,18 @@ const clear = () => {
 							v-bind="item"
 							v-model:rangeValue="item.value"
 							:key="item.title.zh || item.title.en"
+							@checkFeature="checkFeature"
 						/>
+						<ElRow v-for="item in poiKeysRow" :key="`${item[0]}${item[1]}`">
+							<ElCol :span="12" v-for="key in item" :key="key">
+								<ElCheckbox
+									@change="val => changeCheckbox(val, key)"
+									:modelValue="featureStore.selectedPoiKeys.includes(key)"
+								>
+									{{ key }}
+								</ElCheckbox>
+							</ElCol>
+						</ElRow>
 					</div>
 
 					<el-space class="page-map-container__left-button-container-right" direction="vertical" size="small">
