@@ -6,10 +6,12 @@ import PicGrid from '@/components/PicGrid/index.vue'
 import CustomSlider from './components/CustomSlider.vue'
 import { useFeatureStore } from '@/store/feature'
 import useOutStore from '@/store/out'
+import { useMapGridStore } from '@/store/mapGrid'
 
 const featureStore = useFeatureStore()
+const mapGridStore = useMapGridStore()
 const outStore = useOutStore()
-const mapRef = ref<any>(null)
+const mapRef = ref<typeof Map | null>(null)
 
 // 是否折叠
 const isCollapse = ref(true)
@@ -20,8 +22,26 @@ const features = computed(() => featureStore.featureConfigs)
 
 /** 寻址 */
 const findLocation = () => {
-	mapRef.value.markPoint(outStore.selectedCoordinated)
+	mapRef.value && mapRef.value.markPoint(outStore.selectedCoordinated)
 }
+
+/**
+ * 寻景
+ * 地图框选的点
+ */
+const findStreetscape = () => {
+	mapGridStore.setStreetScapeList([], true)
+}
+
+/** 隐藏/显示 */
+const switchVisible = () => {
+	mapGridStore.switchStreetScape()
+}
+
+/** 地景关系 */
+const turnOnGroundStreetScape = () => {}
+
+const clear = () => {}
 </script>
 
 <template>
@@ -46,7 +66,10 @@ const findLocation = () => {
 
 					<el-space class="page-map-container__left-button-container-right" direction="vertical" size="small">
 						<el-button @click="findLocation">寻址</el-button>
-						<el-button>寻址</el-button>
+						<el-button @click="findStreetscape">寻景</el-button>
+						<el-button @click="switchVisible">隐藏/显示</el-button>
+						<el-button @click="turnOnGroundStreetScape">地景关系</el-button>
+						<el-button @click="clear">清空</el-button>
 					</el-space>
 				</div>
 				<div class="page-map-container__left-map-container">

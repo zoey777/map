@@ -1,10 +1,12 @@
 <script lang="ts" setup>
+import { StreetScapeType } from '@/store/mapGrid'
 import { computed, ref } from 'vue'
 
 const props = defineProps<{
 	path: string
 	selected: boolean
 	featureSelected: boolean
+	streetScapeProperty: StreetScapeType | null
 }>()
 
 const selectedValue = ref(2)
@@ -13,6 +15,9 @@ const selectedBorderWidth = computed(() => `${selectedValue.value}px`)
 const selectedSize = computed(() => `calc(100% - ${selectedValue.value * 2}px)`)
 const featureSelectedBorderWidth = computed(() => `${featureValue.value}px`)
 const featureSelectedSize = computed(() => `calc(100% - ${featureValue.value * 2}px)`)
+
+/** 地景关系透明度 */
+const streetScapeOpacity = computed(() => props.streetScapeProperty?.opacity || 0)
 </script>
 <template>
 	<div class="pic-box">
@@ -25,6 +30,7 @@ const featureSelectedSize = computed(() => `calc(100% - ${featureValue.value * 2
 				v-show="props.featureSelected"
 				class="pic-box__container__mask pic-box__container__mask--selected-feature"
 			></div>
+			<div class="pic-box__container__mask pic-box__container__mask--groundstreetscape"></div>
 			<img :src="props.path" />
 		</div>
 	</div>
@@ -94,6 +100,16 @@ const featureSelectedSize = computed(() => `calc(100% - ${featureValue.value * 2
 					border: v-bind(featureSelectedBorderWidth) solid rgba(255, 255, 255, 0.8);
 					width: v-bind(featureSelectedSize);
 					height: v-bind(featureSelectedSize);
+				}
+			}
+
+			&--groundstreetscape {
+				z-index: 15;
+				&::after {
+					opacity: v-bind(streetScapeOpacity);
+					background-color: rgb(237, 202, 2);
+					width: 100%;
+					height: 100%;
 				}
 			}
 		}

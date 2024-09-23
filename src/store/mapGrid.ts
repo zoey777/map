@@ -1,15 +1,26 @@
 import { defineStore } from 'pinia'
 
-type SelectedIndexMapType = Record<string, boolean>
+export type SelectedIndexMapType = Record<string, boolean>
+export type StreetScapeType = {
+	picIndex: number
+	count: number
+	opacity: number
+}
 
 const defaultState = {
 	renderCount: 900,
 	renderRow: 30,
-
-	selectedIndexMap: {} as SelectedIndexMapType,
 	isMousedown: false,
 	startMouseIndex: -1,
 	currentMouseIndex: -1,
+	/** 鼠标已经点选的图片的索引 */
+	selectedIndexMap: {} as SelectedIndexMapType,
+	/** 已经框选的 */
+	preStreetScapeList: [] as StreetScapeType[],
+	/** 寻景数据信息 */
+	streetScapeList: [] as StreetScapeType[],
+	/** 是否展示寻景图层 */
+	isStreetScapeOn: false,
 }
 
 export const useMapGridStore = defineStore('map', {
@@ -40,6 +51,32 @@ export const useMapGridStore = defineStore('map', {
 
 			// 在最后判断。selectedIndexData会判断是否处于按下状态，如果不处于按下状态，则返回空内容，导致后续无法拿到当前选中的值
 			this.isMousedown = false
+		},
+
+		/**
+		 * 设置寻景数据
+		 * @param list
+		 * @param isSubmit 如果为true，则将preStreetScapeList保存到streetScapeList，否则将list保存到preStreetScapeList。
+		 */
+		setStreetScapeList(list: StreetScapeType[], isSubmit: boolean) {
+			if (!isSubmit) {
+				this.preStreetScapeList = list
+			} else {
+				this.streetScapeList.splice(0)
+				this.streetScapeList.push(...this.preStreetScapeList)
+				this.isStreetScapeOn = true
+			}
+		},
+		/**
+		 * 开关 是否显示寻景图层
+		 * @param turnOn
+		 */
+		switchStreetScape(turnOn?: boolean) {
+			if (turnOn === undefined) {
+				this.isStreetScapeOn = !this.isStreetScapeOn
+			} else {
+				this.isStreetScapeOn = turnOn
+			}
 		},
 	},
 	getters: {
@@ -104,6 +141,11 @@ export const useMapGridStore = defineStore('map', {
 					return item[1]
 				})
 				.map(item => Number(item[0]))
+		},
+		streetscapeOpacityList() {
+			const isOn = this.isStreetScapeOn as boolean
+			const scapeList: StreetScapeType[] = this.streetScapeList
+			return isOn ? scapeList : null
 		},
 	},
 })

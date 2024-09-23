@@ -1,13 +1,27 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 import { SUPPORTED_CITY, useMap } from './map'
+import { useFeatureStore } from '@/store/feature'
+import { StreetScapeType, useMapGridStore } from '@/store/mapGrid'
 
+const featureStore = useFeatureStore()
+const mapGridStore = useMapGridStore()
 const containerRef = ref<HTMLElement | null>(null)
 const { init, destroy, loading, load, markPoint } = useMap(SUPPORTED_CITY['香港'], {
 	onDraw: {
-		data: [[114.15818, 22.281928]],
-		callback: result => {
-			console.log(result)
+		callback(containsFn: (point: [number, number]) => boolean) {
+			const coordinateData = featureStore.coordinateData
+
+			const res: StreetScapeType[] = Object.entries(coordinateData).map(([key, value]) => {
+				const count = value.filter(item => containsFn([item[1], item[0]])).length
+				return {
+					picIndex: Number(key),
+					count,
+					opacity: Math.min(1, count * 0.1),
+				}
+			})
+
+			mapGridStore.setStreetScapeList(res, false)
 		},
 	},
 })

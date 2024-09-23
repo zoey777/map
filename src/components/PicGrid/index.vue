@@ -8,7 +8,7 @@ const mapGridStore = useMapGridStore()
 const featureStore = useFeatureStore()
 
 const { recordMousedown, recordMouseup, recordMousemove } = mapGridStore
-const { allSelectedPicIndexData } = toRefs(mapGridStore)
+const { allSelectedPicIndexData, isStreetScapeOn } = toRefs(mapGridStore)
 const { includedIds } = toRefs(featureStore)
 
 /** 获取点击元素的数据属性 */
@@ -64,6 +64,7 @@ onUnmounted(() => {
 			:selected="Boolean(allSelectedPicIndexData[index])"
 			:featureSelectd="includedIds.includes(index)"
 			:featureSelected="featureStore.includedIds.includes(index)"
+			:streetScapeProperty="isStreetScapeOn ? mapGridStore.streetScapeList[index] || null : null"
 			:data-pic-index="index"
 		/>
 	</div>

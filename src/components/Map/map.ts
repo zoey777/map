@@ -21,8 +21,7 @@ export const mapConfig: Record<SUPPORTED_CITY, MapConfigItem> = {
 type LngLat = [number, number]
 interface MapCallbacks {
 	onDraw: {
-		data: LngLat[]
-		callback: (result: { index: number; lnglat: LngLat; isInclude: boolean }[]) => void
+		callback: (containsFn: (point: LngLat) => boolean) => void
 	}
 }
 /**
@@ -136,16 +135,8 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 		mouseTool.on('draw', function (event: any) {
 			//event.obj 为绘制出来的覆盖物对象
 			const obj = event.obj
-			const data = callbacks.onDraw.data
-			callbacks.onDraw.callback(
-				data.map((lnglat, index) => {
-					return {
-						index,
-						lnglat,
-						isInclude: obj.contains(lnglat),
-					}
-				})
-			)
+
+			callbacks.onDraw.callback(obj.contains.bind(obj))
 		})
 	}
 
@@ -154,8 +145,6 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 			marker.remove()
 		})
 		labelMarkerList.splice(0)
-
-		labelsLayer.clear()
 
 		const markers = coordinateList.map(item => {
 			const position = [item[1], item[0]]
