@@ -65,6 +65,7 @@ onUnmounted(() => {
 			:featureSelectd="includedIds.includes(index)"
 			:featureSelected="featureStore.includedIds.includes(index)"
 			:streetScapeProperty="isStreetScapeOn ? mapGridStore.streetScapeList[index] || null : null"
+			:groundStreetColorRGB="featureStore.groundStreetscapeColorRGB[index]"
 			:data-pic-index="index"
 		/>
 	</div>

@@ -25,6 +25,8 @@ const defaultState = {
 	coordinateData: {} as CoordinateDataType,
 	/** 被勾选的feature */
 	checkedFeatureList: [] as string[],
+	/** 地景关系rgb */
+	groundStreetscapeColor: {} as Record<string, [number, number, number]>,
 	isInit: false,
 }
 
@@ -51,10 +53,19 @@ const getFeatureData = async () => {
 		'请检查features_data.json文件格式是否正确'
 	)
 }
-
 /** 获取feature对应范围数据 */
 const getCoordinateData = async () => {
 	return await asyncFetchPublicJson<CoordinateDataType>('/data/coordinate.json')
+}
+
+/**
+ * 获取地景关系颜色数据
+ */
+const getGroundStreetscapeColor = async () => {
+	return await asyncFetchPublicJson<Record<string, [number, number, number]>>(
+		'/data/color.json',
+		'请检查color.json文件格式是否正确'
+	)
 }
 
 export const useFeatureStore = defineStore('feature', {
@@ -88,6 +99,7 @@ export const useFeatureStore = defineStore('feature', {
 			// 获取data文件
 			this.coordinateData = await getCoordinateData()
 			this.featureData = await getFeatureData()
+			this.groundStreetscapeColor = await getGroundStreetscapeColor()
 
 			this.featureConfigs.splice(0)
 			this.featureConfigs = featureConfigs.map(config => {
@@ -137,6 +149,14 @@ export const useFeatureStore = defineStore('feature', {
 			})
 
 			return _.intersection<number>(...ids)
+		},
+		groundStreetscapeColorRGB() {
+			const rgbDatas = this.groundStreetscapeColor as Record<string, [number, number, number]>
+			const rgbObject: Record<string, string> = {}
+			Object.entries(rgbDatas).forEach(([key, [r, g, b]]) => {
+				rgbObject[key] = `rgb(${r},${g},${b})`
+			})
+			return rgbObject
 		},
 	},
 })

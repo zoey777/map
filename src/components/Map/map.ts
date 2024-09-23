@@ -36,7 +36,9 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 	let map: any = null
 	let AMap: any = null
 	let labelsLayer: any = null
+	let groundStreetLabelsLayer: any = null
 	const labelMarkerList: any = []
+	const groundStreetscapeLabelMarkerList: any = []
 
 	const init = async () => {
 		// 调用init初始化key
@@ -81,6 +83,14 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 			allowCollision: false, //不同标注层之间是否避让
 		})
 		map.add(labelsLayer)
+
+		/** 地景关系图层 */
+		groundStreetLabelsLayer = new AMap.LabelsLayer({
+			zIndex: 1000,
+			collision: false, //该层内标注是否避让
+			allowCollision: false, //不同标注层之间是否避让
+		})
+		map.add(groundStreetLabelsLayer)
 	}
 
 	const loadPlugin = async (map: any) => {
@@ -140,6 +150,7 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 		})
 	}
 
+	/** 在地图中标记默认选中图片后的点 */
 	const markPoint = (coordinateList: [number, number][]) => {
 		labelMarkerList.forEach((marker: any) => {
 			marker.remove()
@@ -164,6 +175,30 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 		labelsLayer.add(labelMarkerList)
 	}
 
+	const markGroundStreetscape = (rgbList: [LngLat, [number, number, number]][]) => {
+		groundStreetscapeLabelMarkerList.forEach((marker: any) => {
+			marker.remove()
+		})
+		groundStreetscapeLabelMarkerList.splice(0)
+
+		const markers = rgbList.map(item => {
+			const [r, g, b] = item[1]
+			return new AMap.LabelMarker({
+				position: item[0],
+				icon: {
+					type: 'image',
+					image: genSVG(`rgb(${r},${g},${b})`),
+					size: [1, 1],
+					alwaysRender: false,
+					anchor: 'bottom-center',
+				},
+			})
+		})
+
+		groundStreetscapeLabelMarkerList.push(...markers)
+		groundStreetLabelsLayer.add(groundStreetscapeLabelMarkerList)
+	}
+
 	const destroy = () => {
 		map && map.destroy()
 	}
@@ -174,5 +209,6 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 		loading,
 		destroy,
 		markPoint,
+		markGroundStreetscape,
 	}
 }

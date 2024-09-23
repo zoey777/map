@@ -7,6 +7,7 @@ const props = defineProps<{
 	selected: boolean
 	featureSelected: boolean
 	streetScapeProperty: StreetScapeType | null
+	groundStreetColorRGB: string
 }>()
 
 const selectedValue = ref(2)
@@ -16,8 +17,11 @@ const selectedSize = computed(() => `calc(100% - ${selectedValue.value * 2}px)`)
 const featureSelectedBorderWidth = computed(() => `${featureValue.value}px`)
 const featureSelectedSize = computed(() => `calc(100% - ${featureValue.value * 2}px)`)
 
-/** 地景关系透明度 */
+/** 寻景透明度 */
 const streetScapeOpacity = computed(() => props.streetScapeProperty?.opacity || 0)
+
+/** 地景关系rgb */
+const groundStreetscapeColor = computed(() => props.groundStreetColorRGB)
 </script>
 <template>
 	<div class="pic-box">
@@ -29,6 +33,10 @@ const streetScapeOpacity = computed(() => props.streetScapeProperty?.opacity || 
 			<div
 				v-show="props.featureSelected"
 				class="pic-box__container__mask pic-box__container__mask--selected-feature"
+			></div>
+			<div
+				v-show="props.streetScapeProperty"
+				class="pic-box__container__mask pic-box__container__mask--streetscape"
 			></div>
 			<div class="pic-box__container__mask pic-box__container__mask--groundstreetscape"></div>
 			<img :src="props.path" />
@@ -103,11 +111,20 @@ const streetScapeOpacity = computed(() => props.streetScapeProperty?.opacity || 
 				}
 			}
 
-			&--groundstreetscape {
-				z-index: 15;
+			&--streetscape {
+				z-index: 8;
 				&::after {
 					opacity: v-bind(streetScapeOpacity);
 					background-color: rgb(237, 202, 2);
+					width: 100%;
+					height: 100%;
+				}
+			}
+
+			&--groundstreetscape {
+				z-index: 7;
+				&::after {
+					background-color: v-bind(groundStreetscapeColor);
 					width: 100%;
 					height: 100%;
 				}

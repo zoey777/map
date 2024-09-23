@@ -39,7 +39,9 @@ const switchVisible = () => {
 }
 
 /** 地景关系 */
-const turnOnGroundStreetScape = () => {}
+const turnOnGroundStreetScape = () => {
+	mapRef.value && mapRef.value.markGroundStreetscape(Object.entries(featureStore.groundStreetscapeColor))
+}
 
 const clear = () => {}
 </script>
