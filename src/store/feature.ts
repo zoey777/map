@@ -108,7 +108,7 @@ export const useFeatureStore = defineStore('feature', {
 			this.featureConfigs.splice(0)
 			this.featureConfigs = rawConfigs.map(config => {
 				const max = getMultipleVal(config.max ?? 1, true)
-				const min = getMultipleVal(config.min ?? 1, true)
+				const min = getMultipleVal(config.min ?? 0, true)
 				const defaultMin = getMultipleVal(config.defaultMin || 0.4, true)
 				const defaultMax = getMultipleVal(config.defaultMax || 0.6, true)
 				return {

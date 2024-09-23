@@ -10,8 +10,264 @@
         },
         "max": 1,
         "min": 0,
+        "defaultMax": 0.9,
+        "defaultMin": 0.2,
+        "dataIndex": "Feature_1"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
         "defaultMax": 0.6,
         "defaultMin": 0.4,
-        "dataIndex": "Feature_1"
+        "dataIndex": "Feature_2"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_3"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_4"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_5"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_6"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_7"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_8"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "max": 1,
+        "min": 0,
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_9"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "max": 1,
+        "min": 0,
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_10"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "max": 1,
+        "min": 0,
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_11"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "max": 1,
+        "min": 0,
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_12"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "max": 1,
+        "min": 0,
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_13"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "max": 1,
+        "min": 0,
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_14"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "max": 1,
+        "min": 0,
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_15"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "max": 1,
+        "min": 0,
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_16"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "max": 1,
+        "min": 0,
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_17"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "max": 1,
+        "min": 0,
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_18"
+    },
+    {
+        "title": {
+            "zhCn": "feat_1",
+            "en": "feat_12"
+        },
+        "tip": {
+            "zhCn": "test",
+            "en": "test2"
+        },
+        "max": 1,
+        "min": 0,
+        "defaultMax": 0.6,
+        "defaultMin": 0.4,
+        "dataIndex": "Feature_19"
     }
 ]
