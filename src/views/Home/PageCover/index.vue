@@ -24,8 +24,8 @@ watch(
 <template>
 	<div class="cover">
 		<ElSpace class="btns" direction="vertical">
-			<div class="btns__btn" @click="emit('nextPage', 'en')">EXPLORE (English)</div>
-			<div class="btns__btn" @click="emit('nextPage', 'zhCn')">探索（中文）</div>
+			<div class="btns__btn" @click="emit('nextPage', 'en')">{{ $t('page1.startEn') }}</div>
+			<div class="btns__btn" @click="emit('nextPage', 'zhCn')">{{ $t('page1.startZhCn') }}</div>
 		</ElSpace>
 	</div>
 </template>

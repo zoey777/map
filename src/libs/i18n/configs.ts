@@ -13,7 +13,26 @@ export const genLangObj = (defaultConfig: Partial<Record<(typeof supportsLang)[n
 }
 
 export const i18nLangConfigs: LangConfigType = {
-	page1: {},
+	global: {
+		pagePrev: genLangObj({
+			zhCn: '上一页',
+			en: 'Last page',
+		}),
+		pageNext: genLangObj({
+			zhCn: '下一页',
+			en: 'Next page',
+		}),
+	},
+	page1: {
+		startEn: genLangObj({
+			zhCn: 'EXPLORE(English)',
+			en: 'EXPLORE(English)',
+		}),
+		startZhCn: genLangObj({
+			zhCn: '搜索(中文)',
+			en: '搜索中文',
+		}),
+	},
 	page2: {
 		title_pic: genLangObj({
 			zhCn: '/pageIntro-title-zhCn.png',
@@ -43,77 +62,196 @@ Hence, we have introduced an "Urban Streetscape Search Engine" application, whic
 			en: `In this "Urban Streetscape Search Engine", we specifically focus on three perception-based visual characteristics: texture, shape, and color of the streetscape, which are quantified using visual complexity as the measurement. There are three compelling reasons behind this approach:`,
 		}),
 		text3: genLangObj({
-			zhCn: '',
+			zhCn: '1. 凯文林奇在《城市意象》中提出，沿街的砖墙老屋、门前的热闹集市、街边的葱郁大树等，这些具有不同纹理、形状、色彩与组合模式的视觉肌理，往往会形成生动、强烈的心理图像， 是强化城市意象性(imageability)与易辨性(legibility)的感知方式。因此，纹理、形状、色彩是认识城市意象、印象、风貌形象的典型视觉特征。',
 			en: '1. In "The Image of the City", Lynch argued that "it is that shape, color, or arrangement which facilitates the making of vividly identified, powerfully structured, highly useful mental images of the environment ... the mental image involves its shape, color, texture, and detail" Various visual impressions, such as the brick walls of old houses, lively markets at the doorstep, and boulevards with lush trees, creating vibrant and vivid mental images. These elements: texture, shape, and color, therefore play a significant role in strengthening the imageability and legibility of the city.',
 		}),
 		text4: genLangObj({
-			zhCn: '',
+			zhCn: '在以往对城市街景与人类认知的耦合研究中，不难发现“视觉复杂度”可被看作是街景多种认知体验的底层逻辑与描述机制。因此，视觉复杂度是视觉信息传递中数量与能量的有效量化方式。',
 			en: '2. In previous research exploring the connection between urban street views and human cognition, it becomes apparent that visual complexity can be seen as the foundational logic and descriptive mechanism underlying various cognitive experiences of streetscapes. Consequently, visual complexity serves as an effective quantitative measure of the amount and intensity of visual perception.',
 		}),
 		text5: genLangObj({
-			zhCn: '',
+			zhCn: '3. 目前，街景的数字解析通常依靠语义分割技术，即提取街景的天空、建筑、植物、道路等物质构成特征，并测算其各自的像素占比。但这种方法只能描述街景的“形态”，却并不能抓住街景的“神韵”，街景往往拥有相似的物质元素构成，却给人完全不同的视觉感受。 对此，街景纹理、形状、色彩特征的视觉复杂度为城市形象认知提供了一个新颖的探索角度。同时，也可作为现有方法的有效补充，在数字语境下更全面的掌握城市街景形象。',
 			en: "3. Currently, the digital analysis of streetscapes typically relies on image semantic segmentation, which involves extracting object elements such as the sky, buildings, plants, and roads from the streetscape and quantifying them based on their pixel proportions. However, this method only depicts the object of the streetscape, but fails to capture their impressions. As a result, the visual complexity of streetscape's texture, shape, and color provides a novel perspective for the city image. Simultaneously, it also serves as an effective complement to existing methods, enabling a more comprehensive understanding of the urban streetscape in the digital context.",
 		}),
 		text6: genLangObj({
-			zhCn: '',
+			zhCn: `综上，纹理、形状、颜色的视觉复杂度代表了城市视觉感知的信息量，基于此的“城市街景搜索引擎”将视觉感知特征、街景及其地理信息融合，创造了一个有趣的城市探索方式。点击“下一页”，让我们一同来探索城市丰富的视觉体验吧！
+同时，在左侧的视频中，您可以了解有关“城市街景搜索引擎”的应用方法。此应用是基于以下论文而开发的：`,
 			en: `To sum up, the visual complexity of texture, shape, and color encapsulates the volume of information in urban visual perception. Building upon this notion, the "Urban Streetscape Search Engine" seamlessly merges visual perceptual characteristics, treetscapes, and their geographical information, crafting an intriguing approach to the exploration of city images. Click "Next page" to embark on a journey through the city's vibrant visual experiences together! Furthermore, the video on the left provides insights into the application techniques of the "Urban Streetscape Search Engine". This application is developed based on the research paper: `,
 		}),
 		text_paper: genLangObj({
-			zhCn: '',
+			zhCn: 'Ma, L., Guo, Z., Lu, M., He, S. & Wang, M. (2023). Developing an urban streetscape indexing based on visual complexity and self-organizing map. Building and Environment, 242, 110549.',
 			en: 'Ma, L., Guo, Z., Lu, M., He, S. & Wang, M. (2023). Developing an urban streetscape indexing based on visual complexity and self-organizing map. Building and Environment, 242, 110549.',
 		}),
 		text7: genLangObj({
-			zhCn: '',
+			zhCn: '此研究受支持于国家社会科学基金(No.21BMZ111)、国家自然科学基金(No.52308015, No.52208014)、广东省基础与应用基础研究基金(No. 2021A1515110546)、广州市科技计划项目(No. 202102020683)。另外，感谢广东工业大学本科生邓朝阳同学前期的调研、GIS数据分析、与数据整理工作。',
 			en: 'This work was supported by the National Social Science Fund of China (No.21BMZ111), the National Natural Science Foundation of China (No.52308015, No.52208014), the Guangdong Basic and Applied Basic Research Foundation (No.2021A1515110546) , and the Guangzhou Science and Technology Planning Project (No.202102020683). Additionally, we extend our appreciation to Chaoyang Deng, an undergraduate student at Guangdong University of Technology, for his valuable contributions in the preliminary research, GIS data analysis, and data organization work.',
 		}),
 		feat1: genLangObj({
-			zhCn: '',
-			en: '*街景的纹理特征',
+			zhCn: '*街景的纹理特征',
+			en: '*The texture characteristics of streetscapes',
 		}),
 		feat2: genLangObj({
-			zhCn: '',
-			en: '*街景的形状特征',
+			zhCn: '*街景的形状特征',
+			en: '*The shape characteristics of streetscapes',
 		}),
 		feat3: genLangObj({
-			zhCn: '',
-			en: '*街景的色彩特征',
+			zhCn: '*街景的色彩特征',
+			en: '*The color characteristics of streetscapes',
 		}),
 		feat4: genLangObj({
-			zhCn: '',
-			en: '*"安全性”由低到高的街景',
+			zhCn: '*"安全性”由低到高的街景',
+			en: '*Streetscapes graded from low to high on the scale of "sefety"',
 		}),
 		feat4_link: genLangObj({
-			zhCn: '',
-			en: '*（图片来源：Nikhil Naik, et al, 2014）',
+			zhCn: '*（图片来源：Nikhil Naik, et al, 2014）',
+			en: ' (image courtesy: Nikhil Naik, et al, 2014)',
 		}),
 		feat5: genLangObj({
-			zhCn: '',
-			en: '*"视觉质量”由低到高的街景',
+			zhCn: '*"视觉质量”由低到高的街景',
+			en: '*Streetscapes graded from low to high on the scale of "visual quality"',
 		}),
 		feat5_link: genLangObj({
-			zhCn: '',
-			en: '（图片来源：Yu Ye, et al, 2019）',
+			zhCn: '（图片来源：Yu Ye, et al, 2019）',
+			en: '(image courtesy: Yu Ye, et al, 2019)',
 		}),
 		feat6: genLangObj({
-			zhCn: '',
-			en: '*"美观性”由低到高的街景',
+			zhCn: '*"美观性”由低到高的街景',
+			en: '*Streetscapes graded from low to high on the scale of "beauty" ',
 		}),
 		feat6_link: genLangObj({
-			zhCn: '',
-			en: ' （图片来源：Abhimanyu Dubey, et al, 2016）',
+			zhCn: '（图片来源：Abhimanyu Dubey, et al, 2016）',
+			en: '  (image courtesy: Abhimanyu Dubey, et al, 2016)',
 		}),
 		feat7: genLangObj({
-			zhCn: '',
-			en: '*"疗愈性”由低到高的街景',
+			zhCn: '*"疗愈性”由低到高的街景',
+			en: '*Streetscapes graded from low to high on the scale of "healing perception"',
 		}),
 		feat7_link: genLangObj({
-			zhCn: '',
-			en: '（图片来源：徐磊青, 等, 2020）',
+			zhCn: '（图片来源：徐磊青, 等, 2020）',
+			en: '(image courtesy: Leiqing Xu, et al, 2020)',
 		}),
 		feat8: genLangObj({
-			zhCn: '',
-			en: '*物质构成相似的街景却有着完全不同的视觉感受',
+			zhCn: '*物质构成相似的街景却有着完全不同的视觉感受',
+			en: '*Streetscapes share similar object-based configurations but exhibit distinct visual perceptions',
 		}),
 	},
-	page3: {},
+	page3: {
+		title: genLangObj({
+			zhCn: '街 景 搜 索 引 擎 — 香 港 站',
+			en: 'Streetscape Searching Engine - HongKong',
+		}),
+		findGeo: genLangObj({
+			zhCn: '寻址',
+			en: 'Find Geo-location',
+		}),
+		findStreet: genLangObj({
+			zhCn: '寻景',
+			en: 'Find Streetscape',
+		}),
+		default: genLangObj({
+			zhCn: '清空',
+			en: 'Default',
+		}),
+		hide: genLangObj({
+			zhCn: '隐藏 / 显示',
+			en: 'Hide / Show',
+		}),
+		grondSteet: genLangObj({
+			zhCn: '地景关系',
+			en: 'Ground-Streetscape dynamic',
+		}),
+		餐饮服务: genLangObj({
+			zhCn: '餐饮服务',
+			en: 'en',
+		}),
+		风景名胜: genLangObj({
+			zhCn: '名胜古迹',
+			en: 'en',
+		}),
+		公司企业: genLangObj({
+			zhCn: '公司企业',
+			en: 'en',
+		}),
+		购物服务: genLangObj({
+			zhCn: '购物服务',
+			en: 'en',
+		}),
+		交通设施服务: genLangObj({
+			zhCn: '交通设施服务',
+			en: 'en',
+		}),
+		金融保险服务: genLangObj({
+			zhCn: '金融保险服务',
+			en: 'en',
+		}),
+		科教文化服务: genLangObj({
+			zhCn: '科教文化服务',
+			en: 'en',
+		}),
+		商务住宅: genLangObj({
+			zhCn: '商务住宅',
+			en: 'en',
+		}),
+		生活服务: genLangObj({
+			zhCn: '生活服务',
+			en: 'en',
+		}),
+		体育休闲服务: genLangObj({
+			zhCn: '体育休闲服务',
+			en: 'en',
+		}),
+		医疗保健服务: genLangObj({
+			zhCn: '医疗保健服务',
+			en: 'en',
+		}),
+		住宿服务: genLangObj({
+			zhCn: '住宿服务',
+			en: 'en',
+		}),
+		sliderHigh: genLangObj({
+			zhCn: '高',
+			en: 'high',
+		}),
+		sliderLow: genLangObj({
+			zhCn: '低',
+			en: 'low',
+		}),
+		introText: genLangObj({
+			zhCn: '以下“特征地图”通过分析街景中纹理、形状、颜色，将香港全境街景按“视觉感知相似性”重新排列。 相较于“地理地图”，“特征地图”是一种全新的城市形象呈现逻辑。因此，我们对城市形象的探索将变得更加灵活与有趣！现在，你可以尝试以下操作来进行街景信息的搜索：',
+			en: `The presented "Feature Map" re-organizes the spectrum of Hong Kong's streetscapes based on their "visual perceptual similarity", achieved through an analysis of textures, shapes, and colors quantified within the street scenes. In comparison with a "geographic map", this "Feature Map" presents urban streetscapes in a novel alternative logic. Consequently, our exploration of the city image gains flexibility and fun! Now, feel free to begin your serch of streescapes by engaging with the following actions:`,
+		}),
+		introText2: genLangObj({
+			zhCn: '1. 寻址：根据街景，迅速定位其在城市中的地理位置。',
+			en: '1. Find Geo-location: efficiently pinpoint the geo-location within the city according to selected streetscapes.',
+		}),
+		introText3: genLangObj({
+			zhCn: '· 拖动左边的量值滑动条，看看“纹理”、“形状”、“颜色”的视觉复杂度变化，会在特征地图中形成怎样的街景？点击左侧“寻址”按键，进一步发现这些街景在“地理地图”中的分布。 这项操作可应用于：城市色彩研究或艺术家寻找城市中色彩组合丰富的场址，城市驾驶导航中选择视觉体验简洁的道路，等场景。 · 按照你的喜好与想法，在“特征地图”中选择街景，点击“寻址”，发现这些街景在“地理地图”中分布。 这项操作可应用于：城市热岛效应研究中定位城市高密度建筑街区，旅游者在城市中搜寻自然风光地带，等场景。',
+			en: `· Slide the bars on the left to witness the effect of the visual complexity level of "texture", "shape", and "color" in formalizing various streetscapes in the "Feature Map". Furthermore, Click on the left-side "Find geo-location" to explore where these streetscapes are positioned on the left "geo-map". This action can be useful in different situations, like seeking locations with vibrant color combinations for urban color planners or art painters, choosing visually simple routes for city navigation, and more.
+· Based on your preferences and ideas, handpick streetscapes within the "feature map", then click "Find geo-location" to uncover how these chosen streetscapes are distributed on the "geo-map". This action can be useful in identifying high-density urban areas for urban heat studies, or assisting tourists in discovering natural scenic spots within the city.`,
+		}),
+		introText4: genLangObj({
+			zhCn: '2. 寻景：根据地理位置，了解其所包含街景的类型与特征。',
+			en: '2. Find Streetscapes: gain insights into the types and features of the included streetscapes based on selected geo-location.',
+		}),
+		introText5: genLangObj({
+			zhCn: '· 在“地理地图”中以多段线选择目标区域位置，点击“寻景”，“特征地图”中便以颜色标记的热力图表示区域内街景的组成类型与数量，颜色越深表明此类型街景越多。这项操作可应用于：某区域街景形象的快速审计、区域内街景环境的异质性评估，街道视觉感受的节奏控制，等场景。 “隐藏/显示”按键有助于更方便的查看对应街景类型。',
+			en: '· Within the "Geo-map," delineate your desired area using polylines. Click "Find Streetscapes", the "Feature Map" will unveil a color-coded heat map that showcases the types and quantities of streetscapes in that region. Darker hues indicate a greater prevalence of a specific type of streetscapes. This functionality finds utility in swiftly auditing street images in specific zones, evaluating the heterogeneity of street environments, controlling the visual rhythm of a street, and more. The "Hide/Show" button enhances the convenience of viewing the respective streetscape types.',
+		}),
+		introText6: genLangObj({
+			zhCn: '3. 地景关系：以色彩标记连接城市“特征地图”与“地理地图”，展现城市街景分布特征。',
+			en: '3. Ground-streetscape dynamic: utilizing color spectrum markers, "Feature Map" and "Geo-map" are seamlessly linked, presenting distinct distribution patterns of the city.',
+		}),
+		introText7: genLangObj({
+			zhCn: '· 点击“地景关系”，“特征地图”被色谱标记，细粒度区分不同街景类型；同时，“地理地图”中相应以色彩点展示了城市街景分布。“隐藏/显示”按键有助于更方便的查看对应街景类型。',
+			en: '· Clicking on "Ground-streetscape dynamic" triggers the color mask of "Feature Map", allowing for a fine-grained distinction of various streetscape types; Simultaneously, the distribution of streetscapes is vividly illustrated on "Geo-map" through using corresponding color-marked dots. The "Hide/Show" button enhances the convenience of viewing the respective streetscape types.',
+		}),
+		introCollapse: genLangObj({
+			zhCn: '- 折叠/展开 -',
+			en: '- Unfold/fold -',
+		}),
+		gridTitle: genLangObj({
+			zhCn: `-- 街 景 “特 征 地 图” --`,
+			en: `-- "Feature map" of streetscapes --`,
+		}),
+	},
 }

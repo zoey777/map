@@ -11,45 +11,45 @@ const i18n = useI18n()
 const configs = computed(() => [
 	{
 		path: '/page2-0a.png',
-		title: i18n.t('page1.btn'),
+		title: i18n.t('page2.feat1'),
 	},
 	{
 		path: '/page2-0b.png',
-		title: '*街景的纹理特征',
+		title: i18n.t('page2.feat2'),
 	},
 	{
 		path: '/page2-0c.png',
-		title: '*街景的纹理特征',
+		title: i18n.t('page2.feat3'),
 	},
 	{
 		path: '/page2-1a.png',
-		title: '*街景的纹理特征',
+		title: i18n.t('page2.feat4'),
 		link: {
-			title: '（图片来源：Nikhil Naik, et al, 2014）',
+			title: i18n.t('page2.feat4_link'),
 			path: 'https://ieeexplore.ieee.org/document/6910072',
 		},
 	},
 	{
 		path: '/page2-1b.png',
-		title: '*街景的纹理特征',
+		title: i18n.t('page2.feat5'),
 		link: {
-			title: '（图片来源：Yu Ye, et al, 2019）',
+			title: i18n.t('page2.feat5_link'),
 			path: 'https://journals.sagepub.com/doi/10.1177/2399808319828734',
 		},
 	},
 	{
 		path: '/page2-1c.png',
-		title: '*街景的纹理特征',
+		title: i18n.t('page2.feat6'),
 		link: {
-			title: '（图片来源：Abhimanyu Dubey, et al, 2016）',
+			title: i18n.t('page2.feat6_link'),
 			path: 'https://link.springer.com/chapter/10.1007/978-3-319-46448-0_12',
 		},
 	},
 	{
 		path: '/page2-1d.png',
-		title: '*街景的纹理特征',
+		title: i18n.t('page2.feat7'),
 		link: {
-			title: '（图片来源：徐磊青, 等, 2020）',
+			title: i18n.t('page2.feat7_link'),
 			path: 'https://link.springer.com/chapter/10.1007/978-3-319-46448-0_12',
 		},
 	},
@@ -58,7 +58,7 @@ const configs = computed(() => [
 	},
 	{
 		path: '/page2-2b.png',
-		title: '*街景的纹理特征',
+		title: i18n.t('page2.feat8'),
 	},
 ])
 const titlePic = computed(() => i18n.t('page2.title_pic'))
@@ -112,11 +112,11 @@ const titlePic = computed(() => i18n.t('page2.title_pic'))
 			</div>
 			<p class="page-intro__content">
 				{{ $t('page2.text6') }}
-				<ElLink :underline="false" href="https://linkinghub.elsevier.com/retrieve/pii/S0360132323005760">
-					{{ $t('page2.paper') }}
-				</ElLink>
-				{{ $t('page2.text7') }}
 			</p>
+			<ElLink href="https://linkinghub.elsevier.com/retrieve/pii/S0360132323005760">
+				{{ $t('page2.text_paper') }}
+			</ElLink>
+			<p class="page-intro__content">{{ $t('page2.text7') }}</p>
 		</div>
 		<ChangePage direction="next" @click="emit('nextPage')" />
 	</div>
@@ -158,6 +158,7 @@ const titlePic = computed(() => i18n.t('page2.title_pic'))
 	}
 
 	&__content {
+		word-break: break-all;
 		font-size: 16px;
 		line-height: 30px;
 		color: #444444;
@@ -183,6 +184,10 @@ const titlePic = computed(() => i18n.t('page2.title_pic'))
 					width: 200px;
 					margin-top: -80px;
 				}
+			}
+
+			&__main {
+				padding: 0 20px 0 20px;
 			}
 		}
 	}

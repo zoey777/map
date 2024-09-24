@@ -13,7 +13,7 @@ const props = defineProps<{
 		<img :src="props.path" :alt="props.title" />
 		<div class="text">
 			<span class="title" v-if="props.title">{{ props.title }}</span>
-			<ElLink v-if="props.link" :href="props.link.path">{{ props.link.title }}</ElLink>
+			<ElLink :underline="false" v-if="props.link" :href="props.link.path">{{ props.link.title }}</ElLink>
 		</div>
 	</div>
 </template>
@@ -38,7 +38,13 @@ const props = defineProps<{
 }
 
 .text {
-	display: flex;
 	margin-bottom: 18px;
+
+	::v-deep(.el-link) {
+		display: inline;
+		.el-link__inner {
+			display: inline;
+		}
+	}
 }
 </style>

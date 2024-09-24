@@ -63,7 +63,7 @@ const changeSlider = _.debounce(() => {
 					</el-tooltip>
 				</el-space>
 				<div class="container__slider">
-					<el-text class="slider__left-content">低</el-text>
+					<el-text class="slider__left-content">{{ $t('page3.sliderLow') }}</el-text>
 					<el-slider
 						class="slider__bar"
 						v-model="rangeValue"
@@ -73,7 +73,7 @@ const changeSlider = _.debounce(() => {
 						range
 						@change="changeSlider"
 					/>
-					<el-text class="slider__left-content">高</el-text>
+					<el-text class="slider__left-content">{{ $t('page3.sliderHigh') }}</el-text>
 				</div>
 			</div>
 		</div>

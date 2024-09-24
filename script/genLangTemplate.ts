@@ -3,10 +3,14 @@ const path = require('path')
 import { writeFile, writeFileSync } from 'fs'
 import { genAllConfigFileContents } from '../src/libs/i18n/genConfig'
 
-writeFileSync(path.join(__dirname, '../public/langs/template.json'), JSON.stringify(genAllConfigFileContents()), {
-	encoding: 'utf-8',
-	flush: true,
-})
+writeFileSync(
+	path.join(__dirname, '../public/langs/template/template.json'),
+	JSON.stringify(genAllConfigFileContents()),
+	{
+		encoding: 'utf-8',
+		flush: true,
+	}
+)
 
 const langModules = genAllConfigFileContents()
 
