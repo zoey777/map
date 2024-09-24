@@ -11,11 +11,12 @@ import _ from 'lodash'
 import { CheckboxValueType } from 'element-plus'
 import ChangePage from '@/components/ChangePage/index.vue'
 import { Splitpanes, Pane } from 'splitpanes'
+// import { useConfigStore } from '@/store/config'
 
 const emit = defineEmits(['prevPage', 'nextPage'])
 
 const isPicTextCollapse = ref(true)
-
+// const configStore = useConfigStore()
 const featureStore = useFeatureStore()
 const mapGridStore = useMapGridStore()
 const outStore = useOutStore()
@@ -81,7 +82,7 @@ const handlePicTextCollapse = () => {
 }
 
 /** 是否是面板分割模式 */
-const isSplitPane = ref(true)
+const isSplitPane = computed(() => true)
 </script>
 
 <template>
