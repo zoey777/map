@@ -6,6 +6,7 @@ import ELementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import 'swiper/css'
 import './assets/font/font.css'
+import 'splitpanes/dist/splitpanes.css'
 import { getI18nPluginAsync } from './libs/i18n'
 
 const app = createApp(App)

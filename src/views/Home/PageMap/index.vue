@@ -10,6 +10,7 @@ import { useMapGridStore } from '@/store/mapGrid'
 import _ from 'lodash'
 import { CheckboxValueType } from 'element-plus'
 import ChangePage from '@/components/ChangePage/index.vue'
+import { Splitpanes, Pane } from 'splitpanes'
 
 const emit = defineEmits(['prevPage', 'nextPage'])
 
@@ -78,10 +79,135 @@ const checkFeature = () => {
 const handlePicTextCollapse = () => {
 	isPicTextCollapse.value = !isPicTextCollapse.value
 }
+
+/** 是否是面板分割模式 */
+const isSplitPane = ref(true)
 </script>
 
 <template>
-	<el-container class="page-map-container">
+	<!-- <el-container class="page-map-container"> -->
+	<Splitpanes
+		class="default-theme"
+		v-if="isSplitPane"
+		:style="{
+			gap: '1px',
+		}"
+	>
+		<Pane>
+			<el-aside class="page-map-container__aside">
+				<div class="page-map-container__aside-left">
+					<div class="page-map-container__left-button-container">
+						<div class="page-map-container__left-button-container-left">
+							<div class="title">{{ $t('page3.title') }}</div>
+							<CustomSlider
+								v-for="item in features"
+								v-bind="item"
+								v-model:rangeValue="item.value"
+								:key="item.title.zh || item.title.en"
+								@checkFeature="checkFeature"
+							/>
+							<ElDivider />
+							<ElRow v-for="item in poiKeysRow" :key="`${item[0]}${item[1]}`">
+								<ElCol :span="12" v-for="key in item" :key="key">
+									<ElCheckbox
+										@change="val => changeCheckbox(val, key)"
+										:modelValue="featureStore.selectedPoiKeys.includes(key)"
+									>
+										{{ $t(`page3.${key}`) }}
+									</ElCheckbox>
+								</ElCol>
+							</ElRow>
+							<ElDivider />
+						</div>
+
+						<el-space
+							class="page-map-container__left-button-container-right"
+							direction="vertical"
+							size="small"
+						>
+							<el-button @click="findLocation">{{ $t('page3.findGeo') }}</el-button>
+							<el-button @click="findStreetscape">{{ $t('page3.findStreet') }}</el-button>
+							<el-button @click="switchVisible">{{ $t('page3.hide') }}</el-button>
+							<el-button @click="turnOnGroundStreetScape">{{ $t('page3.grondSteet') }}</el-button>
+							<el-button @click="clear">{{ $t('page3.default') }}</el-button>
+						</el-space>
+					</div>
+					<div class="page-map-container__left-map-container">
+						<Map ref="mapRef" />
+					</div>
+				</div>
+				<div
+					v-if="!isSplitPane"
+					@click="() => (isCollapse = !isCollapse)"
+					class="page-map-container__collaspe_btn"
+				>
+					<el-button>
+						<el-icon>
+							<ArrowRight v-if="isCollapse" />
+							<ArrowLeft v-else />
+						</el-icon>
+					</el-button>
+				</div>
+			</el-aside>
+		</Pane>
+		<Pane>
+			<el-main
+				:style="{
+					'justify-content': 'center',
+					'background-color': '#fff',
+					height: '100%',
+				}"
+			>
+				<ElSpace class="pic-map-container" direction="vertical" alignment="flex-end">
+					<ChangePage direction="prev" @click="emit('prevPage')" />
+					<div class="pic-map-container__text">
+						<p class="intro__title">
+							{{ $t('page3.introText') }}
+						</p>
+						<template v-if="!isPicTextCollapse">
+							<ElDivider />
+							<p class="intro__title">{{ $t('page3.introText2') }}</p>
+							<p>
+								{{ $t('page3.introText3') }}
+							</p>
+							<p class="intro__title">{{ $t('page3.introText4') }}</p>
+							<p>
+								{{ $t('page3.introText5') }}
+							</p>
+							<p class="intro__title">{{ $t('page3.introText6') }}</p>
+							<p>
+								{{ $t('page3.introText7') }}
+							</p>
+						</template>
+						<ElButton
+							:style="{
+								width: '100%',
+							}"
+							@click="handlePicTextCollapse"
+						>
+							{{ $t('page3.introCollapse') }}
+						</ElButton>
+					</div>
+				</ElSpace>
+				<p
+					:style="{
+						padding: '10px 0',
+						textAlign: 'center',
+						fontFamily: 'PingFangSC-Thin',
+						color: '#444444',
+						fontSize: '20px',
+					}"
+				>
+					{{ $t('page3.gridTitle') }}
+				</p>
+				<div>
+					<PicGrid />
+				</div>
+			</el-main>
+		</Pane>
+	</Splitpanes>
+	<!-- </el-container> -->
+	<el-container class="page-map-container" v-else>
 		<el-aside
 			:style="{
 				width: isCollapse ? '40%' : '68%',
@@ -141,60 +267,58 @@ const handlePicTextCollapse = () => {
 			}"
 		/>
 
-		<el-container>
-			<el-main
+		<el-main
+			:style="{
+				'justify-content': 'center',
+				'background-color': '#fff',
+			}"
+		>
+			<ElSpace class="pic-map-container" direction="vertical" alignment="flex-end">
+				<ChangePage direction="prev" @click="emit('prevPage')" />
+				<div class="pic-map-container__text">
+					<p class="intro__title">
+						{{ $t('page3.introText') }}
+					</p>
+					<template v-if="!isPicTextCollapse">
+						<ElDivider />
+						<p class="intro__title">{{ $t('page3.introText2') }}</p>
+						<p>
+							{{ $t('page3.introText3') }}
+						</p>
+						<p class="intro__title">{{ $t('page3.introText4') }}</p>
+						<p>
+							{{ $t('page3.introText5') }}
+						</p>
+						<p class="intro__title">{{ $t('page3.introText6') }}</p>
+						<p>
+							{{ $t('page3.introText7') }}
+						</p>
+					</template>
+					<ElButton
+						:style="{
+							width: '100%',
+						}"
+						@click="handlePicTextCollapse"
+					>
+						{{ $t('page3.introCollapse') }}
+					</ElButton>
+				</div>
+			</ElSpace>
+			<p
 				:style="{
-					'justify-content': 'center',
-					'background-color': '#fff',
+					padding: '10px 0',
+					textAlign: 'center',
+					fontFamily: 'PingFangSC-Thin',
+					color: '#444444',
+					fontSize: '20px',
 				}"
 			>
-				<ElSpace class="pic-map-container" direction="vertical" alignment="flex-end">
-					<ChangePage direction="prev" @click="emit('prevPage')" />
-					<div class="pic-map-container__text">
-						<p class="intro__title">
-							{{ $t('page3.introText') }}
-						</p>
-						<template v-if="!isPicTextCollapse">
-							<ElDivider />
-							<p class="intro__title">{{ $t('page3.introText2') }}</p>
-							<p>
-								{{ $t('page3.introText3') }}
-							</p>
-							<p class="intro__title">{{ $t('page3.introText4') }}</p>
-							<p>
-								{{ $t('page3.introText5') }}
-							</p>
-							<p class="intro__title">{{ $t('page3.introText6') }}</p>
-							<p>
-								{{ $t('page3.introText7') }}
-							</p>
-						</template>
-						<ElButton
-							:style="{
-								width: '100%',
-							}"
-							@click="handlePicTextCollapse"
-						>
-							{{ $t('page3.introCollapse') }}
-						</ElButton>
-					</div>
-				</ElSpace>
-				<p
-					:style="{
-						padding: '10px 0',
-						textAlign: 'center',
-						fontFamily: 'PingFangSC-Thin',
-						color: '#444444',
-						fontSize: '20px',
-					}"
-				>
-					{{ $t('page3.gridTitle') }}
-				</p>
-				<div>
-					<PicGrid />
-				</div>
-			</el-main>
-		</el-container>
+				{{ $t('page3.gridTitle') }}
+			</p>
+			<div>
+				<PicGrid />
+			</div>
+		</el-main>
 	</el-container>
 </template>
 <style lang="less" scoped>
@@ -209,8 +333,9 @@ const handlePicTextCollapse = () => {
 
 	position: relative;
 	&__aside {
-		min-width: 375px !important;
-		transition: all 0.5s ease-in-out;
+		height: 100%;
+		width: 100%;
+		transition: all 0.18s ease-in-out;
 		position: relative;
 		z-index: 2;
 		overflow: visible;

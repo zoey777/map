@@ -20,6 +20,10 @@ const genConfig = (defaultEnable: boolean, comment: string): ConfigType => {
 }
 
 const defaultConfig: ConfigType = {
+	isSplitPaneMode: {
+		moduleName: 'PageMap',
+		value: genConfig(false, '地图页面，是否需要启用面板手动控制左右板块宽度'),
+	},
 	feature: {
 		moduleName: 'Feature',
 		findImmediatly: genConfig(
@@ -28,6 +32,7 @@ const defaultConfig: ConfigType = {
 		),
 	},
 }
+
 export const useConfigStore = defineStore('config', {
 	state: () => ({
 		defaultConfig,

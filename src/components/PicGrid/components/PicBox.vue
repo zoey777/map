@@ -56,6 +56,7 @@ const groundStreetscapeColor = computed(() => props?.groundStreetColorRGB)
 	user-select: none;
 	justify-content: center;
 	align-items: center;
+	min-width: 18px;
 
 	&__container {
 		position: relative;
