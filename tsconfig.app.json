@@ -21,9 +21,9 @@
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
 		"paths": {
-			"@/*": ["src/*"]
+			"@/*": ["src/*" ]
 		},
 		"types": ["vite/client", "element-plus/global"]
 	},
-	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "script/**/*.ts"]
 }

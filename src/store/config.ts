@@ -1,8 +1,10 @@
+import asyncFetchPublicJson from '../tools/asyncFetchPublicJson'
 import { defineStore } from 'pinia'
+import { ref } from 'vue'
 
-enum ConfigNameEnum {
-	isSplitPaneMode = '是否手动面板分割',
-	findImmediatly = '滑块是否在滑动后立即执行一次寻址',
+export enum ConfigNameEnum {
+	是否手动面板分割 = 'isSplitPaneMode',
+	滑块是否在滑动后立即执行一次寻址 = 'findImmediatly',
 }
 
 type ConfigItem = {
@@ -11,7 +13,7 @@ type ConfigItem = {
 }
 
 type ConfigType = {
-	[key in ConfigNameEnum]: ConfigItem
+	[k in ConfigNameEnum]: ConfigItem
 }
 
 const genConfig = (defaultEnable: boolean, comment: string): ConfigItem => {
@@ -21,17 +23,36 @@ const genConfig = (defaultEnable: boolean, comment: string): ConfigItem => {
 	}
 }
 
-const defaultConfig: ConfigType = {
-	[ConfigNameEnum.isSplitPaneMode]: genConfig(false, '地图页面，是否需要启用面板手动控制左右板块宽度'),
-	[ConfigNameEnum.findImmediatly]: genConfig(
-		true,
-		'是否需要滑块在【勾选和关闭】、【滑动】的时候，立即执行一次寻址（已优化，不会有性能问题）'
+export const defaultConfig: ConfigType = {
+	[ConfigNameEnum.是否手动面板分割]: genConfig(false, '地图页面，是否需要启用面板手动控制左右板块宽度'),
+	[ConfigNameEnum.滑块是否在滑动后立即执行一次寻址]: genConfig(
+		false,
+		'是否需要滑块在【勾选和关闭】、【滑动】的时候，立即执行一次寻址。如果为false，则在滑动后需手动点击寻址才可生效。'
 	),
 }
 
-export const useConfigStore = defineStore('config', {
-	state: () => defaultConfig,
-	actions: {
-		// getConfig(key: ConfigNameEnum) {},
-	},
+const getConfiguration = async () => {
+	return asyncFetchPublicJson<Record<ConfigNameEnum, ConfigItem>>(
+		'/configs/configuration.json',
+		'请检查configuration.json文件格式是否正确'
+	)
+}
+
+export const useConfigStore = defineStore('config', () => {
+	const state = ref(defaultConfig)
+
+	getConfiguration().then(res => {
+		;(Object.keys(res) as ConfigNameEnum[]).forEach((key: ConfigNameEnum) => {
+			if (state.value[key] !== undefined) {
+				state.value[key] = res[key as ConfigNameEnum]
+			}
+		})
+	})
+
+	return {
+		state,
+		getConfig: (name: keyof ConfigType) => {
+			return state.value[name].enable
+		},
+	}
 })

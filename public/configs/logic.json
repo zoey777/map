@@ -1,6 +1,0 @@
-{
-    "Feature__findImmediatly": {
-        "enable": false,
-        "comment": "feature滑块，是否在滑动后立刻寻址"
-    }
-}

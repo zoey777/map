@@ -11,12 +11,12 @@ import _ from 'lodash'
 import { CheckboxValueType } from 'element-plus'
 import ChangePage from '@/components/ChangePage/index.vue'
 import { Splitpanes, Pane } from 'splitpanes'
-// import { useConfigStore } from '@/store/config'
+import { ConfigNameEnum, useConfigStore } from '@/store/config'
 
 const emit = defineEmits(['prevPage', 'nextPage'])
 
 const isPicTextCollapse = ref(true)
-// const configStore = useConfigStore()
+const configStore = useConfigStore()
 const featureStore = useFeatureStore()
 const mapGridStore = useMapGridStore()
 const outStore = useOutStore()
@@ -24,6 +24,11 @@ const mapRef = ref<typeof Map | null>(null)
 
 // 是否折叠
 const isCollapse = ref(true)
+
+/** 是否滑动后执行寻址 */
+const isImmi = computed(() => configStore.getConfig(ConfigNameEnum['滑块是否在滑动后立即执行一次寻址']))
+/** 是否是面板分割模式 */
+const isSplitPane = computed(() => configStore.getConfig(ConfigNameEnum['是否手动面板分割']))
 
 featureStore.initFeatureState()
 
@@ -70,23 +75,19 @@ const poiKeysRow = computed(() => {
 /** 点选poi */
 const changeCheckbox = (val: CheckboxValueType, key: string) => {
 	featureStore.checkPoi(key, Boolean(val))
-	findLocation()
+	isImmi.value && findLocation()
 }
 
 const checkFeature = () => {
-	findLocation()
+	isImmi.value && findLocation()
 }
 
 const handlePicTextCollapse = () => {
 	isPicTextCollapse.value = !isPicTextCollapse.value
 }
-
-/** 是否是面板分割模式 */
-const isSplitPane = computed(() => true)
 </script>
 
 <template>
-	<!-- <el-container class="page-map-container"> -->
 	<Splitpanes
 		class="default-theme"
 		v-if="isSplitPane"
