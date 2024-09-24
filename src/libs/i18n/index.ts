@@ -1,7 +1,7 @@
 import { createI18n } from 'vue-i18n'
 
 const getI18nPluginAsync = async () => {
-	return fetch('/langs/index.json')
+	return fetch('/langs/locale/index.json')
 		.then(res => res.json())
 
 		.then(async (res: string[]) => {
@@ -15,7 +15,7 @@ const getI18nPluginAsync = async () => {
 			// 注入自定义语言到上面生成的对象中
 			await Promise.all(
 				langKeys.map(async lang => {
-					const langModule = await fetch(`/langs/${lang}.json`)
+					const langModule = await fetch(`/langs/locale/${lang}.json`)
 					const json = await langModule.json()
 
 					Object.assign(configs[lang], json)

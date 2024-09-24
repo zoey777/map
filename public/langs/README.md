@@ -1,5 +1,5 @@
 ### 支持的语言配置
-建立对应的语言文件在该文件夹下，例如af.json、en.json等。
+建立对应的语言文件在该locale文件下，例如zhCn.json、en.json等。前缀命名参考下列 as 后的缩写。
 ```js
 export { default as af } from './lang/af';
 export { default as ar } from './lang/ar';
