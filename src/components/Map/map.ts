@@ -1,7 +1,7 @@
 import { CoordinateDataType } from '@/store/feature'
 import genSVG from '@/tools/genSVG'
 import AMapLoader from '@amap/amap-jsapi-loader'
-import { Ref, ref } from 'vue'
+import { ref } from 'vue'
 
 export enum SUPPORTED_CITY {
 	'香港' = 'HONG_KONG',
@@ -55,13 +55,9 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 		})
 	}
 
-	const load = async (container: Ref<HTMLElement | null>) => {
-		if (!container.value || !container.value?.id) {
-			throw new Error(`没有找到id为${container}的容器.`)
-		}
-
+	const load = async (container: string) => {
 		// 创建Map
-		map = new AMap.Map(container.value.id, {
+		map = new AMap.Map(container, {
 			expendZoomRange: true,
 			zoom: 10,
 			zooms: [8, 30],

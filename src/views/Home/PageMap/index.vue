@@ -75,7 +75,7 @@ const poiKeysRow = computed(() => {
 /** 点选poi */
 const changeCheckbox = (val: CheckboxValueType, key: string) => {
 	featureStore.checkPoi(key, Boolean(val))
-	isImmi.value && findLocation()
+	findLocation()
 }
 
 const checkFeature = () => {

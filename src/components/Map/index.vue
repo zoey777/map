@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import { SUPPORTED_CITY, useMap } from './map'
 import { useFeatureStore } from '@/store/feature'
 import { StreetScapeType, useMapGridStore } from '@/store/mapGrid'
 
 const featureStore = useFeatureStore()
 const mapGridStore = useMapGridStore()
-const containerRef = ref<HTMLElement | null>(null)
 const { init, destroy, loading, load, markPoint, markGroundStreetscape, clear } = useMap(SUPPORTED_CITY['香港'], {
 	onDraw: {
 		callback(containsFn: (point: [number, number]) => boolean) {
@@ -26,9 +25,10 @@ const { init, destroy, loading, load, markPoint, markGroundStreetscape, clear } 
 	},
 })
 
+const ID = 'container'
 onMounted(async () => {
 	await init()
-	await load(containerRef)
+	await load(ID)
 })
 
 onUnmounted(() => {
@@ -43,7 +43,7 @@ defineExpose({
 </script>
 
 <template>
-	<div id="container" class="container" v-loading="loading" ref="containerRef"></div>
+	<div :id="ID" class="container" v-loading="loading"></div>
 </template>
 
 <style lang="less" scoped>
