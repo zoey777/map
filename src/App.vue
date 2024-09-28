@@ -31,6 +31,6 @@ body,
 
 body {
 	font-size: 14px;
-	font: PingFang;
+	font-family: PingFang;
 }
 </style>
