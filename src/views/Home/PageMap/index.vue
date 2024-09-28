@@ -10,6 +10,7 @@ import ChangePage from '@/components/ChangePage/index.vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import { ConfigNameEnum, useConfigStore } from '@/store/config'
 import Poi from './components/Poi.vue'
+import Preference from './components/Preference.vue'
 
 const emit = defineEmits(['prevPage', 'nextPage'])
 
@@ -168,17 +169,20 @@ const handlePicTextCollapse = () => {
 						</ElButton>
 					</div>
 				</ElSpace>
-				<p
-					:style="{
-						padding: '10px 0',
-						textAlign: 'center',
-						fontFamily: 'PingFangSC-Thin',
-						color: '#444444',
-						fontSize: '20px',
-					}"
-				>
-					{{ $t('page3.gridTitle') }}
-				</p>
+				<div class="pic-grid-title">
+					<p
+						:style="{
+							padding: '10px 0',
+							textAlign: 'center',
+							fontFamily: 'PingFangSC-Thin',
+							color: '#444444',
+							fontSize: '20px',
+						}"
+					>
+						{{ $t('page3.gridTitle') }}
+					</p>
+					<Preference />
+				</div>
 				<div>
 					<PicGrid />
 				</div>
@@ -295,5 +299,10 @@ const handlePicTextCollapse = () => {
 
 .intro__title {
 	font-weight: bold;
+}
+
+.pic-grid-title {
+	display: flex;
+	justify-content: space-between;
 }
 </style>
