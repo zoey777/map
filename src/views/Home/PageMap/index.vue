@@ -96,37 +96,27 @@ const handlePicTextCollapse = () => {
 								@checkFeature="checkFeature"
 							/>
 						</div>
-
-						<div
-							:style="{
-								display: 'flex',
-								'flex-direction': 'column',
-							}"
-						>
-							<el-space
-								class="page-map-container__left-button-container-right"
-								direction="vertical"
-								size="small"
-							>
-								<el-button @click="findLocation">{{ $t('page3.findGeo') }}</el-button>
-								<el-button @click="findStreetscape">{{ $t('page3.findStreet') }}</el-button>
-								<el-button @click="switchVisible">{{ $t('page3.hide') }}</el-button>
-								<el-button @click="turnOnGroundStreetScape">{{ $t('page3.grondSteet') }}</el-button>
-								<el-button @click="clear">{{ $t('page3.default') }}</el-button>
-							</el-space>
-							<ElDivider />
-							<div
-								:style="{
-									'overflow-y': 'auto',
-									overflowX: 'hidden',
-								}"
-							>
-								<Poi @changeCheckbox="changeCheckbox" />
-							</div>
-						</div>
 					</div>
 					<div class="page-map-container__left-map-container">
 						<Map ref="mapRef" />
+					</div>
+				</div>
+				<div class="page-map-container__aside-right">
+					<el-space class="page-map-container__aside-right__top" direction="vertical" size="small">
+						<el-button @click="findLocation">{{ $t('page3.findGeo') }}</el-button>
+						<el-button @click="findStreetscape">{{ $t('page3.findStreet') }}</el-button>
+						<el-button @click="switchVisible">{{ $t('page3.hide') }}</el-button>
+						<el-button @click="turnOnGroundStreetScape">{{ $t('page3.grondSteet') }}</el-button>
+						<el-button @click="clear">{{ $t('page3.default') }}</el-button>
+					</el-space>
+					<ElDivider />
+					<div
+						:style="{
+							'overflow-y': 'auto',
+							overflowX: 'hidden',
+						}"
+					>
+						<Poi @changeCheckbox="changeCheckbox" />
 					</div>
 				</div>
 			</el-aside>
@@ -206,6 +196,7 @@ const handlePicTextCollapse = () => {
 		position: relative;
 		z-index: 2;
 		overflow: visible;
+		display: flex;
 
 		&-left {
 			width: 100%;
@@ -213,6 +204,27 @@ const handlePicTextCollapse = () => {
 			display: flex;
 			flex-direction: column;
 			gap: 8px;
+		}
+
+		&-right {
+			display: flex;
+			flex-direction: column;
+			background-color: #fff;
+			padding: 4px 10px;
+			&__top {
+				max-width: 180px;
+				justify-content: center;
+				padding: 0 10px;
+				::v-deep(.el-space__item) {
+					width: 100%;
+
+					.el-button {
+						height: fit-content;
+						word-break: break-all;
+						white-space: normal;
+					}
+				}
+			}
 		}
 	}
 
@@ -238,20 +250,6 @@ const handlePicTextCollapse = () => {
 				text-align: center;
 				font-size: 25px;
 				font-family: 'PingFang-Thin';
-			}
-		}
-		&-right {
-			max-width: 180px;
-			justify-content: center;
-			padding: 0 10px;
-			::v-deep(.el-space__item) {
-				width: 100%;
-
-				.el-button {
-					height: fit-content;
-					word-break: break-all;
-					white-space: normal;
-				}
 			}
 		}
 	}
