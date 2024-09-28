@@ -22,7 +22,12 @@ const mapRef = ref<typeof Map | null>(null)
 
 /** 是否滑动后执行寻址 */
 const isImmi = computed(() => configStore.getConfig(ConfigNameEnum['滑块是否在滑动后立即执行一次寻址']))
+const splitRange = computed(() => {
+	const value = configStore.getConfig(ConfigNameEnum['侧边栏比例（设置60，代表左侧占比60%。取值范围0-100）'])
+	const leftVal = isNaN(Number(value)) ? 50 : Math.min(100, Math.max(0, Number(value)))
 
+	return [leftVal, 100 - leftVal]
+})
 featureStore.initFeatureState()
 
 const features = computed(() => featureStore.featureConfigs)
@@ -82,7 +87,7 @@ const handlePicTextCollapse = () => {
 			gap: '1px',
 		}"
 	>
-		<Pane size="50">
+		<Pane :size="splitRange[0]">
 			<el-aside class="page-map-container__aside">
 				<div class="page-map-container__aside-left">
 					<div class="page-map-container__left-button-container">
@@ -121,7 +126,7 @@ const handlePicTextCollapse = () => {
 				</div>
 			</el-aside>
 		</Pane>
-		<Pane size="50">
+		<Pane :size="splitRange[1]">
 			<el-main
 				:style="{
 					'justify-content': 'center',

@@ -4,10 +4,11 @@ import { ref } from 'vue'
 
 export enum ConfigNameEnum {
 	滑块是否在滑动后立即执行一次寻址 = 'findImmediatly',
+	'侧边栏比例（设置60，代表左侧占比60%。取值范围0-100）' = 'splitRange',
 }
 
 type ConfigItem = {
-	enable: boolean
+	value: boolean | number | string
 	comment: string
 }
 
@@ -15,9 +16,9 @@ type ConfigType = {
 	[k in ConfigNameEnum]: ConfigItem
 }
 
-const genConfig = (defaultEnable: boolean, comment: string): ConfigItem => {
+const genConfig = (defaultValue: ConfigItem['value'], comment: string): ConfigItem => {
 	return {
-		enable: defaultEnable,
+		value: defaultValue,
 		comment,
 	}
 }
@@ -26,6 +27,10 @@ export const defaultConfig: ConfigType = {
 	[ConfigNameEnum.滑块是否在滑动后立即执行一次寻址]: genConfig(
 		false,
 		'是否需要滑块在【勾选和关闭】、【滑动】的时候，立即执行一次寻址。如果为false，则在滑动后需手动点击寻址才可生效。'
+	),
+	[ConfigNameEnum['侧边栏比例（设置60，代表左侧占比60%。取值范围0-100）']]: genConfig(
+		60,
+		'map界面侧边栏占比（设置60，代表左侧占比60%。取值范围0-100）'
 	),
 }
 
@@ -50,7 +55,7 @@ export const useConfigStore = defineStore('config', () => {
 	return {
 		state,
 		getConfig: (name: keyof ConfigType) => {
-			return state.value[name].enable
+			return state.value[name].value
 		},
 	}
 })

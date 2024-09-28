@@ -1,1 +1,10 @@
-{"isSplitPaneMode":{"enable":false,"comment":"地图页面，是否需要启用面板手动控制左右板块宽度"},"findImmediatly":{"enable":false,"comment":"是否需要滑块在【勾选和关闭】、【滑动】的时候，立即执行一次寻址（已优化，不会有性能问题）"}}
+{
+    "findImmediatly": {
+        "value": false,
+        "comment": "是否需要滑块在【勾选和关闭】、【滑动】的时候，立即执行一次寻址。如果为false，则在滑动后需手动点击寻址才可生效。"
+    },
+    "splitRange": {
+        "value": 60,
+        "comment": "map界面侧边栏占比（设置60，代表左侧占比60%。取值范围0-100）"
+    }
+}
