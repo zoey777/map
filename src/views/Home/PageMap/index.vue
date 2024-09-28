@@ -82,7 +82,7 @@ const handlePicTextCollapse = () => {
 			gap: '1px',
 		}"
 	>
-		<Pane>
+		<Pane size="50">
 			<el-aside class="page-map-container__aside">
 				<div class="page-map-container__aside-left">
 					<div class="page-map-container__left-button-container">
@@ -121,15 +121,23 @@ const handlePicTextCollapse = () => {
 				</div>
 			</el-aside>
 		</Pane>
-		<Pane>
+		<Pane size="50">
 			<el-main
 				:style="{
 					'justify-content': 'center',
 					'background-color': '#fff',
 					height: '100%',
+					padding: '8px',
 				}"
 			>
-				<ElSpace class="pic-map-container" direction="vertical" alignment="flex-end">
+				<ElSpace
+					:style="{
+						gap: '0px',
+					}"
+					class="pic-map-container"
+					direction="vertical"
+					alignment="flex-end"
+				>
 					<ChangePage direction="prev" @click="emit('prevPage')" />
 					<div class="pic-map-container__text">
 						<p class="intro__title">
@@ -210,9 +218,9 @@ const handlePicTextCollapse = () => {
 			display: flex;
 			flex-direction: column;
 			background-color: #fff;
-			padding: 4px 10px;
+			padding: 80px 10px 4px 10px;
 			&__top {
-				max-width: 180px;
+				max-width: 200px;
 				justify-content: center;
 				padding: 0 10px;
 				::v-deep(.el-space__item) {
@@ -221,7 +229,7 @@ const handlePicTextCollapse = () => {
 					.el-button {
 						height: fit-content;
 						word-break: break-all;
-						white-space: normal;
+						white-space: nowrap;
 					}
 				}
 			}

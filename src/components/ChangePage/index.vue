@@ -5,7 +5,7 @@ defineProps<{
 </script>
 <template>
 	<div class="change_page">
-		<ElButton>{{ direction === 'prev' ? $t('global.pagePrev') : $t('global.pageNext') }}</ElButton>
+		<ElButton size="small">{{ direction === 'prev' ? $t('global.pagePrev') : $t('global.pageNext') }}</ElButton>
 	</div>
 </template>
 
