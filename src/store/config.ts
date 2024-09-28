@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export enum ConfigNameEnum {
-	是否手动面板分割 = 'isSplitPaneMode',
 	滑块是否在滑动后立即执行一次寻址 = 'findImmediatly',
 }
 
@@ -24,7 +23,6 @@ const genConfig = (defaultEnable: boolean, comment: string): ConfigItem => {
 }
 
 export const defaultConfig: ConfigType = {
-	[ConfigNameEnum.是否手动面板分割]: genConfig(false, '地图页面，是否需要启用面板手动控制左右板块宽度'),
 	[ConfigNameEnum.滑块是否在滑动后立即执行一次寻址]: genConfig(
 		false,
 		'是否需要滑块在【勾选和关闭】、【滑动】的时候，立即执行一次寻址。如果为false，则在滑动后需手动点击寻址才可生效。'
