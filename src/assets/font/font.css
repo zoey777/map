@@ -1,8 +1,14 @@
 /* 苹方 */
 @font-face {
-    font-family: 'PingFang';
-    src: url('./PingFangSC Thin.ttc') format('truetype');
-
+    font-family: 'PingFang-Thin';
+    src: url('./PingFangSC_Thin.woff2');
 }
 
+
+
+/* 苹方 */
+@font-face {
+    font-family: 'PingFang';
+    src: url('./PingFangSC_Regular.woff2');
+}
 

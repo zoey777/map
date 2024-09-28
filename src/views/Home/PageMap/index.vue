@@ -237,8 +237,7 @@ const handlePicTextCollapse = () => {
 				width: 100%;
 				text-align: center;
 				font-size: 25px;
-				font-weight: lighter;
-				font-family: 'PingFang';
+				font-family: 'PingFang-Thin';
 			}
 		}
 		&-right {
@@ -280,7 +279,7 @@ const handlePicTextCollapse = () => {
 			justify-content: left;
 			align-items: center;
 			line-height: 28px;
-			font-size: 15px;
+			font-size: 14px;
 			font-family: 'PingFang';
 			text-align: justify;
 			color: #444444;

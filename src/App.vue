@@ -30,12 +30,7 @@ body,
 }
 
 body {
-	font:
-		14px Helvetica Neue,
-		Helvetica,
-		PingFang SC,
-		Tahoma,
-		Arial,
-		sans-serif;
+	font-size: 14px;
+	font: PingFang;
 }
 </style>

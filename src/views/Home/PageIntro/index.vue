@@ -108,7 +108,7 @@ const titlePic = computed(() => i18n.t('page2.title_pic'))
 			<Info v-bind="configs[7]" />
 			<Info v-bind="configs[8]" />
 			<div class="page-intro__video">
-				<video src="/TRIAL_myMovie_720p.mp4" controls></video>
+				<video src="/TRIAL_myMovie_720p.mp4" controls preload="auto"></video>
 			</div>
 			<p class="page-intro__content">
 				{{ $t('page2.text6') }}
@@ -126,7 +126,6 @@ const titlePic = computed(() => i18n.t('page2.title_pic'))
 .page-intro {
 	height: 100vh;
 	overflow: auto;
-	font-family: 'HarmonyOS_Sans_Thin';
 	padding: 5px 40px 5px 50px;
 
 	&__main {
