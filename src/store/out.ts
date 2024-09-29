@@ -46,8 +46,43 @@ const useOutStore = defineStore('out', () => {
 		}
 	})
 
+	/**
+	 * 计算所有点的景趣偏好值。
+	 * 拿到所有选中的点，和景趣偏好半径。在选中点的透明度值为1，选中点到半径最外层的点的透明度值逐级递减。
+	 *
+	 */
+	const allPointsPreferenceValue = computed(() => {
+		const selectedIds = mapGridStore.selectedIds
+		const radius = mapGridStore.preferenceRadius
+		/** 当前选中点的坐标 */
+		const idsArr = mapGridStore.selectedIdsToArray(selectedIds)
+
+		/** 所有点对应的索引和值的信息 */
+		const indexArr = mapGridStore.getIndexArray()
+
+		// 900个点的透明度系数
+		const opacity = indexArr.map(item => {
+			// 从所有距离中取出最小距离
+			const arr = idsArr
+				.map(selectIdInfo => {
+					// 计算距离
+					const { row, column } = selectIdInfo
+					return Math.max(item.row - row, item.column - column)
+				})
+				.filter(item => item < radius)
+
+			if (arr.length === 0) return 0
+			return Math.min(...arr)
+		})
+		return {
+			selectedIds,
+			opacity,
+		}
+	})
+
 	return {
 		selectedCoordinated,
+		allPointsPreferenceValue,
 	}
 })
 

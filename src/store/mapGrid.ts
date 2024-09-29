@@ -21,6 +21,8 @@ const defaultState = {
 	streetScapeList: [] as StreetScapeType[],
 	/** 是否展示寻景图层 */
 	isStreetScapeOn: false,
+	/**	景趣偏好半径。用于计算选中点周围的半径范围内的点 */
+	preferenceRadius: 0,
 }
 
 export const useMapGridStore = defineStore('map', {
@@ -88,6 +90,37 @@ export const useMapGridStore = defineStore('map', {
 			// 清除鼠标记录
 			this.startMouseIndex = -1
 			this.currentMouseIndex = -1
+		},
+		setPreference(val: number) {
+			this.preferenceRadius = val
+		},
+		/** 获取900个点的二维数组 */
+		getIndexArray() {
+			const row = this.renderRow
+			const column = Math.floor(this.renderCount / this.renderRow)
+
+			const arr = []
+			for (let i = 0; i < row; i++) {
+				for (let j = 0; j < column; j++) {
+					arr.push({
+						row: i,
+						column: j,
+						id: i * row + j,
+					})
+				}
+			}
+			return arr
+		},
+		/** 选中的id列表，获取他们在二维数组中的位置 */
+		selectedIdsToArray(indexes: number[]) {
+			return indexes.map(index => {
+				const row = Math.floor(index / this.renderRow)
+				const column = index % this.renderRow
+				return {
+					row,
+					column,
+				}
+			})
 		},
 	},
 	getters: {
