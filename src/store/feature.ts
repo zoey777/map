@@ -115,6 +115,7 @@ export const useFeatureStore = defineStore('feature', {
 		setGroundStreetscapeColorOn() {
 			this.isGroundStreetScapeOn = !this.isGroundStreetScapeOn
 		},
+
 		async initFeatureState() {
 			//获取config文件
 			const rawConfigs = await getFeatureConfig()

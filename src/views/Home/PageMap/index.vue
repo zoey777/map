@@ -60,6 +60,12 @@ const turnOnGroundStreetScape = () => {
 	featureStore.setGroundStreetscapeColorOn()
 }
 
+/** 地景关系 */
+const turnOnPreferance = () => {
+	mapRef.value?.markPreference(Object.entries(featureStore.groundStreetscapeColor), featureStore.coordinateData)
+	// featureStore.setGroundStreetscapeColorOn()
+}
+
 /** 清空 */
 const clear = () => {
 	mapGridStore.clear()
@@ -113,6 +119,7 @@ const handlePicTextCollapse = () => {
 						<el-button @click="findStreetscape">{{ $t('page3.findStreet') }}</el-button>
 						<el-button @click="switchVisible">{{ $t('page3.hide') }}</el-button>
 						<el-button @click="turnOnGroundStreetScape">{{ $t('page3.grondSteet') }}</el-button>
+						<el-button @click="turnOnPreferance">{{ $t('page3.preference') }}</el-button>
 						<el-button @click="clear">{{ $t('page3.default') }}</el-button>
 					</el-space>
 					<ElDivider />

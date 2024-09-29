@@ -1,15 +1,18 @@
 <script lang="ts" setup>
 import { useMapGridStore } from '@/store/mapGrid'
 import PicBox from './components/PicBox.vue'
-import { onMounted, onUnmounted, toRefs } from 'vue'
+import { computed, onMounted, onUnmounted, toRefs } from 'vue'
 import { useFeatureStore } from '@/store/feature'
+import useOutStore from '@/store/out'
 
 const mapGridStore = useMapGridStore()
 const featureStore = useFeatureStore()
-
+const outStore = useOutStore()
 const { recordMousedown, recordMouseup, recordMousemove } = mapGridStore
 const { allSelectedPicIndexData, isStreetScapeOn } = toRefs(mapGridStore)
 const { includedIds, isGroundStreetScapeOn } = toRefs(featureStore)
+
+const preferenceOpacityList = computed(() => outStore.allPointsPreferenceValue.opacity)
 
 /** 获取点击元素的数据属性 */
 const getElementInfo = (event: MouseEvent) => {
@@ -66,6 +69,7 @@ onUnmounted(() => {
 			:featureSelected="featureStore.includedIds.includes(index)"
 			:streetScapeProperty="isStreetScapeOn ? mapGridStore.streetScapeList[index] || null : null"
 			:groundStreetColorRGB="isGroundStreetScapeOn ? featureStore.groundStreetscapeColorRGB[index] : null"
+			:preferenceOpacity="preferenceOpacityList[index]"
 			:data-pic-index="index"
 		/>
 	</div>

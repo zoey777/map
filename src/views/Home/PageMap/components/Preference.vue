@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useMapGridStore } from '@/store/mapGrid'
-import { computed } from 'vue'
+import { computed, toRefs } from 'vue'
 
 const mapGridStore = useMapGridStore()
+const { maxPreference } = toRefs(mapGridStore)
 const value = computed({
 	get() {
 		return mapGridStore.preferenceRadius
@@ -15,7 +16,7 @@ const value = computed({
 <template>
 	<div class="preference">
 		<ElText class="text">景趣偏好:</ElText>
-		<ElSlider v-model="value" :min="0" :max="10" />
+		<ElSlider v-model="value" :min="0" :max="maxPreference" />
 	</div>
 </template>
 

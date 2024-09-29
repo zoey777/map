@@ -39,8 +39,10 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 	let mouseTool: any = null
 	let labelsLayer: any = null
 	let groundStreetLabelsLayer: any = null
+	let preferenceLabelsLayer: any = null
 	const labelMarkerList: any = []
 	const groundStreetscapeLabelMarkerList: any = []
+	const preferenceLabelMarkerList: any = []
 
 	const init = async () => {
 		// 调用init初始化key
@@ -88,7 +90,14 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 			collision: false, //该层内标注是否避让
 			allowCollision: false, //不同标注层之间是否避让
 		})
+		/** 景趣偏好图层 */
+		preferenceLabelsLayer = new AMap.LabelsLayer({
+			zIndex: 1000,
+			collision: false, //该层内标注是否避让
+			allowCollision: false, //不同标注层之间是否避让
+		})
 		map.add(groundStreetLabelsLayer)
+		map.add(preferenceLabelsLayer)
 	}
 
 	const loadPlugin = async (map: any) => {
@@ -204,6 +213,38 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 		groundStreetLabelsLayer.add(groundStreetscapeLabelMarkerList)
 	}
 
+	const markPreference = (
+		rgbList: [string, [number, number, number, number]][],
+		coordinateData: CoordinateDataType
+	) => {
+		preferenceLabelMarkerList.forEach((marker: any) => {
+			marker.remove()
+		})
+		preferenceLabelMarkerList.splice(0)
+
+		const markers = rgbList
+			.map(item => {
+				const points = coordinateData[item[0]]
+				return points.map(lnglat => {
+					const [r, g, b] = item[1]
+					return new AMap.LabelMarker({
+						position: lnglat,
+						icon: {
+							type: 'image',
+							image: genSVG(`rgb(${r},${g},${b})`),
+							size: [1, 1],
+							alwaysRender: false,
+							anchor: 'bottom-center',
+						},
+					})
+				})
+			})
+			.reduce((pre, cur) => pre.concat(cur), [])
+
+		preferenceLabelMarkerList.push(...markers)
+		preferenceLabelsLayer.add(preferenceLabelMarkerList)
+	}
+
 	const destroy = () => {
 		map && map.destroy()
 	}
@@ -223,6 +264,7 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 		destroy,
 		markPoint,
 		markGroundStreetscape,
+		markPreference,
 		clear,
 	}
 }

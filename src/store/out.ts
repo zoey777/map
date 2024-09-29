@@ -54,6 +54,7 @@ const useOutStore = defineStore('out', () => {
 	const allPointsPreferenceValue = computed(() => {
 		const selectedIds = mapGridStore.selectedIds
 		const radius = mapGridStore.preferenceRadius
+
 		/** 当前选中点的坐标 */
 		const idsArr = mapGridStore.selectedIdsToArray(selectedIds)
 
@@ -67,12 +68,29 @@ const useOutStore = defineStore('out', () => {
 				.map(selectIdInfo => {
 					// 计算距离
 					const { row, column } = selectIdInfo
-					return Math.max(item.row - row, item.column - column)
+					if (row === -1 || column === -1) return -1
+
+					const dis = Math.max(Math.abs(item.row - row), Math.abs(item.column - column))
+					return dis
 				})
-				.filter(item => item < radius)
+				.filter(item => item <= radius && item >= 0)
+				.map(dis => {
+					// 半径为0，则未激活， 返回0
+					if (radius === 0) return 0
+
+					/**
+					 * 透明度 = 1 - (1 / 半径最大值) * (切比雪夫距离 - 1)  = 1 - (1 / mapGridStore.maxPreference ) * (dis - 1)
+					 *
+					 * 1. 如果半径最大值为10，则当选中半径为2的时候，距离为0和1的透明度都为1。此时根据此算法计算的距离为2的点的透明度为0.8，所以dis - 1
+					 * 2. 后面乘以10，除以10，是配合Math.round使用。因为浮点计算，所以小数会出现例如0.2999999,0.30000003的情况
+					 *
+					 */
+
+					return Math.round((1 - (1 / mapGridStore.maxPreference) * Math.max(0, dis - 1)) * 10) / 10
+				})
 
 			if (arr.length === 0) return 0
-			return Math.min(...arr)
+			return Math.max(...arr)
 		})
 		return {
 			selectedIds,

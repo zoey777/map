@@ -13,6 +13,8 @@ const defaultState = {
 	isMousedown: false,
 	startMouseIndex: -1,
 	currentMouseIndex: -1,
+	/** 景区偏好滑块最大半径 */
+	maxPreference: 10,
 	/** 鼠标已经点选的图片的索引 */
 	selectedIndexMap: {} as SelectedIndexMapType,
 	/** 已经框选的 */
