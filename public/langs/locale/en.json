@@ -60,6 +60,8 @@
 		"introText6": "3. Ground-streetscape dynamic: utilizing color spectrum markers, \"Feature Map\" and \"Geo-map\" are seamlessly linked, presenting distinct distribution patterns of the city.",
 		"introText7": "· Clicking on \"Ground-streetscape dynamic\" triggers the color mask of \"Feature Map\", allowing for a fine-grained distinction of various streetscape types; Simultaneously, the distribution of streetscapes is vividly illustrated on \"Geo-map\" through using corresponding color-marked dots. The \"Hide/Show\" button enhances the convenience of viewing the respective streetscape types.",
 		"introCollapse": "- Unfold/fold -",
-		"gridTitle": "-- \"Feature map\" of streetscapes --"
+		"gridTitle": "-- \"Feature map\" of streetscapes --",
+		"preferenceSlider": "Interest Preference",
+		"preferenceBtn": "Preference Map"
 	}
 }

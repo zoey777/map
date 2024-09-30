@@ -226,13 +226,13 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 			.map(item => {
 				const points = coordinateData[item[0]]
 				return points.map(lnglat => {
-					const [r, g, b] = item[1]
+					const [r, g, b, a] = item[1]
 					return new AMap.LabelMarker({
 						position: lnglat,
 						icon: {
 							type: 'image',
-							image: genSVG(`rgb(${r},${g},${b})`),
-							size: [1, 1],
+							image: genSVG(`rgb(${r},${g},${b})`, a * 0.1),
+							size: [3, 3],
 							alwaysRender: false,
 							anchor: 'bottom-center',
 						},
@@ -253,6 +253,7 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 	const clear = () => {
 		labelsLayer.clear()
 		groundStreetLabelsLayer.clear()
+		preferenceLabelsLayer.clear()
 		mouseTool.close(true)
 		pluginMouseTool(map)
 	}

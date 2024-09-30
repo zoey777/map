@@ -15,7 +15,7 @@ const value = computed({
 </script>
 <template>
 	<div class="preference">
-		<ElText class="text">景趣偏好:</ElText>
+		<ElText class="text">{{ $t('page3.preferenceSlider') }}:</ElText>
 		<ElSlider v-model="value" :min="0" :max="maxPreference" />
 	</div>
 </template>

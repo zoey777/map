@@ -62,8 +62,12 @@ const turnOnGroundStreetScape = () => {
 
 /** 地景关系 */
 const turnOnPreferance = () => {
-	mapRef.value?.markPreference(Object.entries(featureStore.groundStreetscapeColor), featureStore.coordinateData)
-	// featureStore.setGroundStreetscapeColorOn()
+	const preferenceList = Object.entries(outStore.allPointsPreferenceValue.opacity)
+		.filter(item => item[1] !== 0)
+		.map(item => {
+			return [item[0], [255, 0, 0, item[1]]]
+		})
+	mapRef.value?.markPreference(preferenceList, featureStore.coordinateData)
 }
 
 /** 清空 */
@@ -119,7 +123,7 @@ const handlePicTextCollapse = () => {
 						<el-button @click="findStreetscape">{{ $t('page3.findStreet') }}</el-button>
 						<el-button @click="switchVisible">{{ $t('page3.hide') }}</el-button>
 						<el-button @click="turnOnGroundStreetScape">{{ $t('page3.grondSteet') }}</el-button>
-						<el-button @click="turnOnPreferance">{{ $t('page3.preference') }}</el-button>
+						<el-button @click="turnOnPreferance">{{ $t('page3.preferenceBtn') }}</el-button>
 						<el-button @click="clear">{{ $t('page3.default') }}</el-button>
 					</el-space>
 					<ElDivider />
@@ -236,7 +240,6 @@ const handlePicTextCollapse = () => {
 			background-color: #fff;
 			padding: 80px 10px 4px 10px;
 			&__top {
-				max-width: 200px;
 				justify-content: center;
 				padding: 0 10px;
 				::v-deep(.el-space__item) {
