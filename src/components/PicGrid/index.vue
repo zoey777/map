@@ -12,7 +12,7 @@ const { recordMousedown, recordMouseup, recordMousemove } = mapGridStore
 const { allSelectedPicIndexData, isStreetScapeOn } = toRefs(mapGridStore)
 const { includedIds, isGroundStreetScapeOn } = toRefs(featureStore)
 
-const preferenceOpacityList = computed(() => outStore.allPointsPreferenceValue.opacity)
+const preferenceColorList = computed(() => outStore.allPointsPreferenceValue.pointColors)
 
 /** 获取点击元素的数据属性 */
 const getElementInfo = (event: MouseEvent) => {
@@ -69,7 +69,7 @@ onUnmounted(() => {
 			:featureSelected="featureStore.includedIds.includes(index)"
 			:streetScapeProperty="isStreetScapeOn ? mapGridStore.streetScapeList[index] || null : null"
 			:groundStreetColorRGB="isGroundStreetScapeOn ? featureStore.groundStreetscapeColorRGB[index] : null"
-			:preferenceOpacity="preferenceOpacityList[index]"
+			:preferenceColor="preferenceColorList[index]"
 			:data-pic-index="index"
 		/>
 	</div>

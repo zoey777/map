@@ -213,26 +213,22 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 		groundStreetLabelsLayer.add(groundStreetscapeLabelMarkerList)
 	}
 
-	const markPreference = (
-		rgbList: [string, [number, number, number, number]][],
-		coordinateData: CoordinateDataType
-	) => {
+	const markPreference = (hexList: string[], coordinateData: CoordinateDataType) => {
 		preferenceLabelMarkerList.forEach((marker: any) => {
 			marker.remove()
 		})
 		preferenceLabelMarkerList.splice(0)
 
-		const markers = rgbList
+		const markers = hexList
 			.map(item => {
 				const points = coordinateData[item[0]]
 				return points.map(lnglat => {
-					const [r, g, b, a] = item[1]
 					return new AMap.LabelMarker({
 						position: lnglat,
 						icon: {
 							type: 'image',
-							image: genSVG(`rgb(${r},${g},${b})`, a * 0.1),
-							size: [3, 3],
+							image: genSVG(item[1], 0.5),
+							size: [2, 2],
 							alwaysRender: false,
 							anchor: 'bottom-center',
 						},

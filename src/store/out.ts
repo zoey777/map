@@ -3,6 +3,9 @@ import { computed } from 'vue'
 import { useMapGridStore } from './mapGrid'
 import { CoordinateDataType, useFeatureStore } from './feature'
 import _ from 'lodash'
+import { genVIRIDIS } from '@/tools/color'
+
+const VIRIDIS = genVIRIDIS()
 
 /** 聚合多个store */
 const useOutStore = defineStore('out', () => {
@@ -61,8 +64,8 @@ const useOutStore = defineStore('out', () => {
 		/** 所有点对应的索引和值的信息 */
 		const indexArr = mapGridStore.getIndexArray()
 
-		// 900个点的透明度系数
-		const opacity = indexArr.map(item => {
+		// 900个的半径距离
+		const pointsDis = indexArr.map(item => {
 			// 从所有距离中取出最小距离
 			const arr = idsArr
 				.map(selectIdInfo => {
@@ -74,27 +77,22 @@ const useOutStore = defineStore('out', () => {
 					return dis
 				})
 				.filter(item => item <= radius && item >= 0)
-				.map(dis => {
-					// 半径为0，则未激活， 返回0
-					if (radius === 0) return 0
 
-					/**
-					 * 透明度 = 1 - (1 / 半径最大值) * (切比雪夫距离 - 1)  = 1 - (1 / mapGridStore.maxPreference ) * (dis - 1)
-					 *
-					 * 1. 如果半径最大值为10，则当选中半径为2的时候，距离为0和1的透明度都为1。此时根据此算法计算的距离为2的点的透明度为0.8，所以dis - 1
-					 * 2. 后面乘以10，除以10，是配合Math.round使用。因为浮点计算，所以小数会出现例如0.2999999,0.30000003的情况
-					 *
-					 */
-
-					return Math.round((1 - (1 / mapGridStore.maxPreference) * Math.max(0, dis - 1)) * 10) / 10
-				})
-
-			if (arr.length === 0) return 0
-			return Math.max(...arr)
+			if (arr.length === 0) return mapGridStore.maxPreference + 1
+			return Math.min(...arr)
 		})
+
+		// 900个点的颜色
+		const pointColors = pointsDis.map(dis => {
+			if (dis > mapGridStore.maxPreference) return null
+			// 当前距离除以最大半径 = 比例
+			// 比例在渐变色中的占比
+			return VIRIDIS.getHex(dis / mapGridStore.maxPreference)
+		})
+
 		return {
 			selectedIds,
-			opacity,
+			pointColors,
 		}
 	})
 

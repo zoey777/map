@@ -62,12 +62,11 @@ const turnOnGroundStreetScape = () => {
 
 /** 地景关系 */
 const turnOnPreferance = () => {
-	const preferenceList = Object.entries(outStore.allPointsPreferenceValue.opacity)
-		.filter(item => item[1] !== 0)
-		.map(item => {
-			return [item[0], [255, 0, 0, item[1]]]
-		})
-	mapRef.value?.markPreference(preferenceList, featureStore.coordinateData)
+	const preferenceColorList = Object.entries(outStore.allPointsPreferenceValue.pointColors).filter(
+		item => item[1] !== null
+	)
+
+	mapRef.value?.markPreference(preferenceColorList, featureStore.coordinateData)
 }
 
 /** 清空 */
