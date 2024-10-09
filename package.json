@@ -18,6 +18,7 @@
 		"@element-plus/icons-vue": "^2.3.1",
 		"@types/lodash": "^4.17.7",
 		"@types/splitpanes": "^2.2.6",
+		"colorgrad-js": "^0.1.0",
 		"commitizen": "^4.3.0",
 		"element-plus": "^2.8.0",
 		"lodash": "^4.17.21",
