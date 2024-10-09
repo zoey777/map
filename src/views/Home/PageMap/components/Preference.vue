@@ -1,9 +1,18 @@
 <script setup lang="ts">
+import { ConfigNameEnum, useConfigStore } from '@/store/config'
 import { useMapGridStore } from '@/store/mapGrid'
-import { computed, toRefs } from 'vue'
+import { computed, toRefs, watch } from 'vue'
 
+const configStore = useConfigStore()
 const mapGridStore = useMapGridStore()
 const { maxPreference } = toRefs(mapGridStore)
+
+const configMaxPreference = computed(() => configStore.getConfig(ConfigNameEnum.景趣最大半径))
+
+watch(configMaxPreference, newValue => {
+	mapGridStore.initMaxPreference(typeof newValue === 'number' ? newValue : Number(newValue))
+})
+
 const value = computed({
 	get() {
 		return mapGridStore.preferenceRadius

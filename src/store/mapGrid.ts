@@ -96,6 +96,9 @@ export const useMapGridStore = defineStore('map', {
 		setPreference(val: number) {
 			this.preferenceRadius = val
 		},
+		initMaxPreference(val: number) {
+			this.maxPreference = val
+		},
 		/** 获取900个点的二维数组 */
 		getIndexArray() {
 			const row = this.renderRow
