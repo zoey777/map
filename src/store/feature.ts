@@ -225,11 +225,14 @@ export const useFeatureStore = defineStore('feature', {
 		poiDataPoints() {
 			const keys = this.selectedPoiKeys as string[]
 			const poiData = this.poiData as PoiDataType
-			const allCoordinates = this.allCoordinates as [number, number][]
+			let data: [number, number][][] = []
+			if (keys.length !== 0) {
+				const allCoordinates = this.allCoordinates as [number, number][]
 
-			const data = keys.map(item => {
-				return poiData[item].map(poi => allCoordinates[poi.index]).filter(item => item)
-			})
+				data = keys.map(item => {
+					return poiData[item].map(poi => allCoordinates[poi.index]).filter(item => item)
+				})
+			}
 
 			return _.intersectionBy(...data, item => `[${item[0]},${item[1]}]`)
 		},
