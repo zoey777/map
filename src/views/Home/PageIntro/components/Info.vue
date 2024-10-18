@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-	path: string
+	path?: string
 	title?: string
 	link?: {
 		title: string
@@ -10,7 +10,7 @@ const props = defineProps<{
 </script>
 <template>
 	<div class="pic-info">
-		<img :src="props.path" :alt="props.title" />
+		<img v-if="props.path" :src="props.path" :alt="props.title" />
 		<div class="text">
 			<span class="title" v-if="props.title">{{ props.title }}</span>
 			<ElLink :underline="false" v-if="props.link" :href="props.link.path">{{ props.link.title }}</ElLink>
@@ -20,7 +20,7 @@ const props = defineProps<{
 
 <style scoped lang="less">
 .pic-info {
-	width: 50%;
+	width: 68%;
 
 	img {
 		width: 100%;

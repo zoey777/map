@@ -34,10 +34,6 @@ export const i18nLangConfigs: LangConfigType = {
 		}),
 	},
 	page2: {
-		title_pic: genLangObj({
-			zhCn: '/pageIntro-title-zhCn.png',
-			en: '/pageIntro-title-en.png',
-		}),
 		title: genLangObj({
 			zhCn: '基于 视觉复杂度 的 城市街景搜索引擎',
 			en: 'Streetscape Search Engine Based on Visual Complexity',
@@ -90,45 +86,9 @@ Hence, we have introduced an "Urban Streetscape Search Engine" application, whic
 			zhCn: '*街景的纹理特征',
 			en: '*The texture characteristics of streetscapes',
 		}),
-		feat2: genLangObj({
-			zhCn: '*街景的形状特征',
-			en: '*The shape characteristics of streetscapes',
-		}),
-		feat3: genLangObj({
-			zhCn: '*街景的色彩特征',
-			en: '*The color characteristics of streetscapes',
-		}),
 		feat4: genLangObj({
 			zhCn: '*"安全性”由低到高的街景',
 			en: '*Streetscapes graded from low to high on the scale of "sefety"',
-		}),
-		feat4_link: genLangObj({
-			zhCn: '*（图片来源：Nikhil Naik, et al, 2014）',
-			en: ' (image courtesy: Nikhil Naik, et al, 2014)',
-		}),
-		feat5: genLangObj({
-			zhCn: '*"视觉质量”由低到高的街景',
-			en: '*Streetscapes graded from low to high on the scale of "visual quality"',
-		}),
-		feat5_link: genLangObj({
-			zhCn: '（图片来源：Yu Ye, et al, 2019）',
-			en: '(image courtesy: Yu Ye, et al, 2019)',
-		}),
-		feat6: genLangObj({
-			zhCn: '*"美观性”由低到高的街景',
-			en: '*Streetscapes graded from low to high on the scale of "beauty" ',
-		}),
-		feat6_link: genLangObj({
-			zhCn: '（图片来源：Abhimanyu Dubey, et al, 2016）',
-			en: '  (image courtesy: Abhimanyu Dubey, et al, 2016)',
-		}),
-		feat7: genLangObj({
-			zhCn: '*"疗愈性”由低到高的街景',
-			en: '*Streetscapes graded from low to high on the scale of "healing perception"',
-		}),
-		feat7_link: genLangObj({
-			zhCn: '（图片来源：徐磊青, 等, 2020）',
-			en: '(image courtesy: Leiqing Xu, et al, 2020)',
 		}),
 		feat8: genLangObj({
 			zhCn: '*物质构成相似的街景却有着完全不同的视觉感受',
@@ -242,8 +202,12 @@ Hence, we have introduced an "Urban Streetscape Search Engine" application, whic
 			en: '3. Ground-streetscape dynamic: utilizing color spectrum markers, "Feature Map" and "Geo-map" are seamlessly linked, presenting distinct distribution patterns of the city.',
 		}),
 		introText7: genLangObj({
-			zhCn: '· 点击“地景关系”，“特征地图”被色谱标记，细粒度区分不同街景类型；同时，“地理地图”中相应以色彩点展示了城市街景分布。“隐藏/显示”按键有助于更方便的查看对应街景类型。',
-			en: '· Clicking on "Ground-streetscape dynamic" triggers the color mask of "Feature Map", allowing for a fine-grained distinction of various streetscape types; Simultaneously, the distribution of streetscapes is vividly illustrated on "Geo-map" through using corresponding color-marked dots. The "Hide/Show" button enhances the convenience of viewing the respective streetscape types.',
+			zhCn: '标题',
+			en: 'title',
+		}),
+		introText8: genLangObj({
+			zhCn: '内容',
+			en: 'content',
 		}),
 		introCollapse: genLangObj({
 			zhCn: '- 折叠/展开 -',

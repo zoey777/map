@@ -64,7 +64,11 @@ const preferenceColor = computed(() => props.preferenceColor)
 	justify-content: center;
 	align-items: center;
 	min-width: 18px;
-
+	&:hover {
+		img {
+			scale: 1.8;
+		}
+	}
 	&__container {
 		position: relative;
 		width: 100%;
@@ -80,13 +84,8 @@ const preferenceColor = computed(() => props.preferenceColor)
 			transition: scale ease-in-out 0.08s;
 		}
 
-		&:hover {
-			img {
-				scale: 1.8;
-			}
-		}
-
 		&__mask {
+			pointer-events: none;
 			overflow: hidden;
 			pointer-events: none;
 			top: 0;

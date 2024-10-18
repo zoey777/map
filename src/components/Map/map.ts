@@ -227,8 +227,8 @@ export const useMap = (city: SUPPORTED_CITY, callbacks: MapCallbacks) => {
 						position: lnglat,
 						icon: {
 							type: 'image',
-							image: genSVG(item[1], 0.5),
-							size: [2, 2],
+							image: genSVG(item[1], 1),
+							size: [1, 1],
 							alwaysRender: false,
 							anchor: 'bottom-center',
 						},

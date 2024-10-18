@@ -1,12 +1,12 @@
 [
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "纹理复杂度",
+            "en": "Texture density"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "街景中物体的表面细节",
+            "en": "The detail level of surfaces within urban environments"
         },
         "max": 1,
         "min": 0,
@@ -16,12 +16,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "形状复杂度",
+            "en": "Pattern complixity"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "城市环境中物体轮廓和几何结构的多样性和不规则性",
+            "en": "Quantity and uncertainty of distinct patterns in the street configuration"
         },
         "defaultMax": 0.6,
         "defaultMin": 0.4,
@@ -29,12 +29,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "色彩复杂度",
+            "en": "Color richness"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "城市环境中不同色彩的丰富程度，包括色调、饱和度和亮度的变化",
+            "en": "Variety and variation of colors in urban environments"
         },
         "defaultMax": 0.6,
         "defaultMin": 0.4,
@@ -42,12 +42,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "建筑构造",
+            "en": "Built construction"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "城市环境中由人类建造的结构如建筑物、桥梁等",
+            "en": "Man-made architectural and structural elements"
         },
         "defaultMax": 0.6,
         "defaultMin": 0.4,
@@ -55,12 +55,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "街道家具",
+            "en": "Street furniture"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "安装在公共空间或沿街的物品和设备，旨在提供功能性、便利性和美观性",
+            "en": " Equipment installed in streets to provide functionality and convenience, and aesthetic value"
         },
         "defaultMax": 0.6,
         "defaultMin": 0.4,
@@ -68,12 +68,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "开放性",
+            "en": "Openness"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "街景中可见天空的比例",
+            "en": "The amount of visible sky"
         },
         "defaultMax": 0.6,
         "defaultMin": 0.4,
@@ -81,12 +81,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "绿视率",
+            "en": "Greenery"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "城市环境中可见的植物或绿色植被的覆盖程度",
+            "en": "Natural elements within urban settings"
         },
         "defaultMax": 0.6,
         "defaultMin": 0.4,
@@ -94,12 +94,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "可行走道路",
+            "en": "Pedestrian pathway"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "供行人通行的道路，用于表示步行便利性",
+            "en": "Representing foot traffic and walkability"
         },
         "defaultMax": 0.6,
         "defaultMin": 0.4,
@@ -107,12 +107,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "车行道",
+            "en": "Vehicular pathway"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "供车辆通行的道路，用于表示机动车流量和交通通行能力",
+            "en": "Representing vehicular access"
         },
         "max": 1,
         "min": 0,
@@ -122,12 +122,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "多功能场地",
+            "en": "Multi-use site"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "支持多种活动的区域",
+            "en": "Areas that support various activities, including earth/ground, field, etc."
         },
         "max": 1,
         "min": 0,
@@ -137,12 +137,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "人类活动",
+            "en": "Human activity"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "反应人口活力",
+            "en": "Vibrancy and daily life of the population"
         },
         "max": 1,
         "min": 0,
@@ -152,12 +152,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "交通活力",
+            "en": "Mobility vividnes"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "城市环境中机动车交通的活跃程度",
+            "en": "Dynamic of vehicular traffic"
         },
         "max": 1,
         "min": 0,
@@ -167,12 +167,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "景观",
+            "en": "Scenery"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "城市中具有美学吸引力的自然或人造景观元素",
+            "en": "Scenic aesthetic appeal of the city"
         },
         "max": 1,
         "min": 0,
@@ -182,12 +182,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "视域面积",
+            "en": "Area "
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "特定视点视野内可见的空间总面积",
+            "en": "The total visible area from a subject point, assessing the openness and congestion of spaces"
         },
         "max": 1,
         "min": 0,
@@ -197,12 +197,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "视域周长",
+            "en": "Perimeter"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "特定视点可视范围内的边界线总长度",
+            "en": "The boundary of the visible area"
         },
         "max": 1,
         "min": 0,
@@ -212,12 +212,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "紧凑度",
+            "en": "Compactness"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "可视区域的面积与其周长之间的比例关系，通常用于衡量视野内空间的形状规则性",
+            "en": "The ratio of the area to the perimeter, indicating how densely packed the visible space is"
         },
         "max": 1,
         "min": 0,
@@ -227,12 +227,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "遮挡度",
+            "en": "Occlusivity"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "视点周围区域中被遮挡部分的总长度或面积，反映出视野中由于障碍物造成的不可见区域的比例",
+            "en": "The proportion of visual obstruction within the field of view"
         },
         "max": 1,
         "min": 0,
@@ -242,12 +242,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "偏度",
+            "en": "Skewness"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "可视区域形状分布的不对称性，反映出视点周围空间的几何形状是否平衡或不对称",
+            "en": "Assessing the uneven distribution of visual fields"
         },
         "max": 1,
         "min": 0,
@@ -257,12 +257,12 @@
     },
     {
         "title": {
-            "zhCn": "feat_1",
-            "en": "feat_12"
+            "zhCn": "漂移度",
+            "en": "drift"
         },
         "tip": {
-            "zhCn": "test",
-            "en": "test2"
+            "zhCn": "可视区域的重心相对于视点的位置偏移程度，反映出视野中空间分布的主要导向",
+            "en": "可视区域的重心相对于视点的位置偏移程度，反映出视野中空间分布的主要导向"
         },
         "max": 1,
         "min": 0,

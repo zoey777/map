@@ -54,8 +54,11 @@ watch(
 	z-index: 10;
 	color: rgb(207, 111, 9);
 
+	::v-deep(.el-space__item) {
+		width: 20%;
+	}
+
 	&__btn {
-		width: 200px;
 		height: 32px;
 		display: flex;
 		justify-content: center;

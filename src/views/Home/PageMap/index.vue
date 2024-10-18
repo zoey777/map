@@ -173,6 +173,10 @@ const handlePicTextCollapse = () => {
 							<p>
 								{{ $t('page3.introText7') }}
 							</p>
+							<p class="intro__title">{{ $t('page3.introText8') }}</p>
+							<p>
+								{{ $t('page3.introText9') }}
+							</p>
 						</template>
 						<ElButton
 							:style="{

@@ -14,54 +14,14 @@ const configs = computed(() => [
 		title: i18n.t('page2.feat1'),
 	},
 	{
-		path: '/page2-0b.png',
-		title: i18n.t('page2.feat2'),
-	},
-	{
-		path: '/page2-0c.png',
-		title: i18n.t('page2.feat3'),
-	},
-	{
 		path: '/page2-1a.png',
 		title: i18n.t('page2.feat4'),
-		link: {
-			title: i18n.t('page2.feat4_link'),
-			path: 'https://ieeexplore.ieee.org/document/6910072',
-		},
-	},
-	{
-		path: '/page2-1b.png',
-		title: i18n.t('page2.feat5'),
-		link: {
-			title: i18n.t('page2.feat5_link'),
-			path: 'https://journals.sagepub.com/doi/10.1177/2399808319828734',
-		},
-	},
-	{
-		path: '/page2-1c.png',
-		title: i18n.t('page2.feat6'),
-		link: {
-			title: i18n.t('page2.feat6_link'),
-			path: 'https://link.springer.com/chapter/10.1007/978-3-319-46448-0_12',
-		},
-	},
-	{
-		path: '/page2-1d.png',
-		title: i18n.t('page2.feat7'),
-		link: {
-			title: i18n.t('page2.feat7_link'),
-			path: 'https://link.springer.com/chapter/10.1007/978-3-319-46448-0_12',
-		},
 	},
 	{
 		path: '/page2-2a.png',
-	},
-	{
-		path: '/page2-2b.png',
 		title: i18n.t('page2.feat8'),
 	},
 ])
-const titlePic = computed(() => i18n.t('page2.title_pic'))
 </script>
 
 <template>
@@ -70,10 +30,10 @@ const titlePic = computed(() => i18n.t('page2.title_pic'))
 		<img class="page-intro__pic-top" src="/pageIntro-hongkong.jpg" />
 
 		<div class="page-intro__main">
-			<div class="page-intro__pic-title">
-				<img :src="titlePic" />
-			</div>
 			<p class="page-intro__title">{{ $t('page2.title') }}</p>
+			<div class="page-intro__video">
+				<video src="/TRIAL_myMovie_720p.mp4" controls preload="auto"></video>
+			</div>
 			<p
 				class="page-intro__content"
 				:style="{
@@ -82,41 +42,31 @@ const titlePic = computed(() => i18n.t('page2.title_pic'))
 			>
 				{{ $t('page2.text1') }}
 			</p>
-			<br />
-			<br />
+
 			<p class="page-intro__content">
 				{{ $t('page2.text2') }}
 			</p>
-			<br />
-			<br />
+
 			<p class="page-intro__content">
 				{{ $t('page2.text3') }}
 			</p>
 			<Info v-bind="configs[0]" />
-			<Info v-bind="configs[1]" />
-			<Info v-bind="configs[2]" />
+
 			<p class="page-intro__content">
 				{{ $t('page2.text4') }}
 			</p>
-			<Info v-bind="configs[3]" />
-			<Info v-bind="configs[4]" />
-			<Info v-bind="configs[5]" />
-			<Info v-bind="configs[6]" />
+			<Info v-bind="configs[1]" />
+
 			<p class="page-intro__content">
 				{{ $t('page2.text5') }}
 			</p>
-			<Info v-bind="configs[7]" />
-			<Info v-bind="configs[8]" />
-			<div class="page-intro__video">
-				<video src="/TRIAL_myMovie_720p.mp4" controls preload="auto"></video>
-			</div>
-			<p class="page-intro__content">
-				{{ $t('page2.text6') }}
-			</p>
+			<Info v-bind="configs[2]" />
+			<Info v-bind="configs[3]" />
+
+			<p class="page-intro__content">{{ $t('page2.text7') }}</p>
 			<ElLink href="https://linkinghub.elsevier.com/retrieve/pii/S0360132323005760">
 				{{ $t('page2.text_paper') }}
 			</ElLink>
-			<p class="page-intro__content">{{ $t('page2.text7') }}</p>
 		</div>
 		<ChangePage direction="next" @click="emit('nextPage')" />
 	</div>
@@ -136,17 +86,6 @@ const titlePic = computed(() => i18n.t('page2.title_pic'))
 		width: 100%;
 	}
 
-	&__pic-title {
-		float: left;
-		transition: all ease-in-out 0.2s;
-		img {
-			transition: all ease-in-out 0.2s;
-			position: relative;
-			width: 400px;
-			margin-top: -130px;
-		}
-	}
-
 	&__title {
 		text-align: center;
 		font-size: 30px;
@@ -157,15 +96,15 @@ const titlePic = computed(() => i18n.t('page2.title_pic'))
 	}
 
 	&__content {
-		word-break: break-all;
+		word-break: break-word;
 		font-size: 16px;
 		line-height: 30px;
 		color: #444444;
-		margin-bottom: 4px;
+		margin-bottom: 12px;
 	}
 
 	&__video {
-		width: 50%;
+		width: 48%;
 		float: left;
 		margin: 0 20px 20px 0;
 		video {
