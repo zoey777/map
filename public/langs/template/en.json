@@ -48,9 +48,12 @@
         "introText4": "2. Find Streetscapes: gain insights into the types and features of the included streetscapes based on selected geo-location.",
         "introText5": "· Within the \"Geo-map,\" delineate your desired area using polylines. Click \"Find Streetscapes\", the \"Feature Map\" will unveil a color-coded heat map that showcases the types and quantities of streetscapes in that region. Darker hues indicate a greater prevalence of a specific type of streetscapes. This functionality finds utility in swiftly auditing street images in specific zones, evaluating the heterogeneity of street environments, controlling the visual rhythm of a street, and more. The \"Hide/Show\" button enhances the convenience of viewing the respective streetscape types.",
         "introText6": "3. Ground-streetscape dynamic: utilizing color spectrum markers, \"Feature Map\" and \"Geo-map\" are seamlessly linked, presenting distinct distribution patterns of the city.",
-        "introText7": "title",
-        "introText8": "content",
+        "introText7": "3内容",
+        "introText8": "4内容",
+        "introText9": "content",
         "introCollapse": "- Unfold/fold -",
-        "gridTitle": "-- \"Feature map\" of streetscapes --"
+        "gridTitle": "-- \"Feature map\" of streetscapes --",
+        "preferenceSlider": "- Unfold/fold -",
+        "preferenceBtn": "Preference mapping"
     }
 }

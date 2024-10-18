@@ -202,10 +202,14 @@ Hence, we have introduced an "Urban Streetscape Search Engine" application, whic
 			en: '3. Ground-streetscape dynamic: utilizing color spectrum markers, "Feature Map" and "Geo-map" are seamlessly linked, presenting distinct distribution patterns of the city.',
 		}),
 		introText7: genLangObj({
-			zhCn: '标题',
-			en: 'title',
+			zhCn: '3内容',
+			en: '3内容',
 		}),
 		introText8: genLangObj({
+			zhCn: '4标题',
+			en: '4内容',
+		}),
+		introText9: genLangObj({
 			zhCn: '内容',
 			en: 'content',
 		}),
@@ -216,6 +220,14 @@ Hence, we have introduced an "Urban Streetscape Search Engine" application, whic
 		gridTitle: genLangObj({
 			zhCn: `-- 街 景 “特 征 地 图” --`,
 			en: `-- "Feature map" of streetscapes --`,
+		}),
+		preferenceSlider: genLangObj({
+			zhCn: `景趣偏好`,
+			en: `- Unfold/fold -`,
+		}),
+		preferenceBtn: genLangObj({
+			zhCn: `偏好地图`,
+			en: `Preference mapping`,
 		}),
 	},
 }
