@@ -62,6 +62,7 @@ const turnOnGroundStreetScape = () => {
 
 /** 地景关系 */
 const turnOnPreferance = () => {
+	if (mapGridStore.preferenceRadius === 0) return
 	const preferenceColorList = Object.entries(outStore.allPointsPreferenceValue.pointColors).filter(
 		item => item[1] !== null
 	)
