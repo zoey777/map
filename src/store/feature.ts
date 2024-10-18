@@ -168,14 +168,16 @@ export const useFeatureStore = defineStore('feature', {
 		},
 	},
 	getters: {
-		/**
-		 *  所有的街景点
-		 * @returns
-		 */
-		allCoordinates() {
-			const data: CoordinateDataType = this.coordinateData
-			return Object.values(data).reduce((pre, cur) => pre.concat(cur), [])
+		poiCoordinatesLengthArr() {
+			const countArr: number[] = []
+			Object.keys(this.coordinateData).reduce((pre, cur) => {
+				const count = pre + this.coordinateData[cur].length
+				countArr.push(count)
+				return count
+			}, 0)
+			return countArr
 		},
+
 		/**
 		 * 获取滑块范围内的点
 		 */
@@ -227,10 +229,28 @@ export const useFeatureStore = defineStore('feature', {
 			const poiData = this.poiData as PoiDataType
 			let data: [number, number][][] = []
 			if (keys.length !== 0) {
-				const allCoordinates = this.allCoordinates as [number, number][]
+				// const allCoordinates = this.allCoordinates as [number, number][]
+
+				// 每次上一个length的length数组
+				const lengthArr = this.poiCoordinatesLengthArr
 
 				data = keys.map(item => {
-					return poiData[item].map(poi => allCoordinates[poi.index]).filter(item => item)
+					return poiData[item]
+						.map(poi => {
+							// 找到是第几个数组
+							const index = lengthArr.findIndex((length, index) => {
+								if (index + 1 >= length) return -1
+								return length <= poi.index && lengthArr[index + 1] > poi.index
+							})
+
+							if (index === -1) return null
+
+							// 找到是数组中第几个
+							const valueIndex = poi.index - lengthArr[index]
+
+							return this.coordinateData[index][valueIndex]
+						})
+						.filter(item => item) as [number, number][]
 				})
 			}
 
