@@ -25,6 +25,8 @@ export type PoiDataType = Record<
 	}[]
 >
 
+export type PoiDataCoordinateDataType = [number, number][]
+
 const defaultState = {
 	/** feature数据解析后的滑块渲染数据 */
 	featureConfigs: [] as FeatureType[],
@@ -33,6 +35,8 @@ const defaultState = {
 	coordinateData: {} as CoordinateDataType,
 	/** poi数据 */
 	poiData: {} as PoiDataType,
+	/** poi对应的坐标点数据 */
+	poiCoordinateData: [] as PoiDataCoordinateDataType,
 	/** 被勾选的poi的key */
 	selectedPoiKeys: [] as string[],
 	/** 被勾选的feature */
@@ -77,6 +81,11 @@ const getCoordinateData = async () => {
 	return await asyncFetchPublicJson<CoordinateDataType>('/data/coordinate.json')
 }
 
+/** 获取feature对应范围数据 */
+const getPoiCoordinateData = async () => {
+	return await asyncFetchPublicJson<PoiDataCoordinateDataType>('/data/all_coordinates.json')
+}
+
 /**
  * 获取地景关系颜色数据
  */
@@ -117,13 +126,31 @@ export const useFeatureStore = defineStore('feature', {
 		},
 
 		async initFeatureState() {
-			//获取config文件
-			const rawConfigs = await getFeatureConfig()
-			// 获取data文件
-			this.coordinateData = await getCoordinateData()
-			this.featureData = await getFeatureData()
-			this.groundStreetscapeColor = await getGroundStreetscapeColor()
-			this.poiData = await getPoiData()
+			// //获取config文件
+			// const rawConfigs = await getFeatureConfig()
+			// // 获取data文件
+			// this.coordinateData = await getCoordinateData()
+
+			// this.featureData = await getFeatureData()
+			// this.groundStreetscapeColor = await getGroundStreetscapeColor()
+			// this.poiData = await getPoiData()
+
+			const [rawConfigs, coordinateData, featureData, groundStreetscapeColor, poiData, poiCoordinateData] =
+				await Promise.all([
+					getFeatureConfig(),
+					getCoordinateData(),
+					getFeatureData(),
+					getGroundStreetscapeColor(),
+					getPoiData(),
+					getPoiCoordinateData(),
+				]).catch(err => {
+					throw new Error('文件读取失败', err)
+				})
+			this.coordinateData = coordinateData
+			this.featureData = featureData
+			this.groundStreetscapeColor = groundStreetscapeColor
+			this.poiData = poiData
+			this.poiCoordinateData = poiCoordinateData
 
 			this.featureConfigs.splice(0)
 			this.featureConfigs = rawConfigs.map(config => {
@@ -229,30 +256,27 @@ export const useFeatureStore = defineStore('feature', {
 			const poiData = this.poiData as PoiDataType
 			let data: [number, number][][] = []
 			if (keys.length !== 0) {
-				// const allCoordinates = this.allCoordinates as [number, number][]
-
-				// 每次上一个length的length数组
-				const lengthArr = this.poiCoordinatesLengthArr
-
 				data = keys.map(item => {
 					return poiData[item]
 						.map(poi => {
-							// 找到是第几个数组
-							const index = lengthArr.findIndex((length, index) => {
-								if (index + 1 >= length) return -1
-								return length <= poi.index && lengthArr[index + 1] > poi.index
-							})
+							// // 找到是第几个数组
+							// const index = lengthArr.findIndex((length, index) => {
+							// 	if (index + 1 >= length) return -1
+							// 	return length <= poi.index && lengthArr[index + 1] > poi.index
+							// })
 
-							if (index === -1) return null
+							// if (index === -1) return null
 
-							// 找到是数组中第几个
-							const valueIndex = poi.index - lengthArr[index]
+							// // 找到是数组中第几个
+							// const valueIndex = poi.index - lengthArr[index]
 
-							return this.coordinateData[index][valueIndex]
+							// return this.coordinateData[index][valueIndex]
+							return this.poiCoordinateData[poi.index]
 						})
 						.filter(item => item) as [number, number][]
 				})
 			}
+			console.log(data)
 
 			return _.intersectionBy(...data, item => `[${item[0]},${item[1]}]`)
 		},
