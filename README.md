@@ -55,6 +55,16 @@ npm run preview
 控制台中会出现路径http://localhost:4173，浏览器访问即可
 ```
 
+## 配置语言文件
+
+lib/i18n中configs.ts中新增语言配置。这样在模板中使用$t('page3.xxx')类似的语法来使用，具体查看`i18n-vue`官网，或者参考该项目中已有内容。
+
+在每次添加configs配置之后，执行下面的命令，来将内容更新到public/langs/template中，**template是模板，你需要将模板手动覆盖到locale文件夹中对应文件上。 生成的模板默认是会合并locale中对应文件的值的**
+
+```
+npm run template
+```
+
 ## 其他打包后的内容
 
 **找到public/README.md，其中有介绍**
