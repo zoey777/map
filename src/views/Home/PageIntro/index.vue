@@ -107,7 +107,9 @@ const configs = computed(() => [
 		width: 48%;
 		float: left;
 		margin: 0 20px 20px 0;
+		margin-top: 10px;
 		video {
+			margin-top: 10px;
 			width: 100%;
 		}
 	}
