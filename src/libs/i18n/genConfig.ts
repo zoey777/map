@@ -19,10 +19,10 @@ export const genAllConfigFileContents = () => {
 		return [lang, obj]
 	})
 
-	const resultObj: Record<string, Record<string, string>> = {}
+	const resultObj: Record<string, Record<string, Record<string, string>>> = {}
 
 	langs.forEach(item => {
-		resultObj[item[0] as string] = item[1] as unknown as Record<string, string>
+		resultObj[item[0] as string] = item[1] as unknown as Record<string, Record<string, string>>
 	})
 	return resultObj
 }
