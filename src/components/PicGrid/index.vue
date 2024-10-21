@@ -9,10 +9,10 @@ const mapGridStore = useMapGridStore()
 const featureStore = useFeatureStore()
 const outStore = useOutStore()
 const { recordMousedown, recordMouseup, recordMousemove } = mapGridStore
-const { allSelectedPicIndexData, isStreetScapeOn, preferenceRadius } = toRefs(mapGridStore)
+const { allSelectedPicIndexData, isStreetScapeOn, isEnablePreference } = toRefs(mapGridStore)
 const { includedIds, isGroundStreetScapeOn } = toRefs(featureStore)
 
-const preferenceColorList = computed(() => outStore.allPointsPreferenceValue.pointColors)
+const preferenceColorList = computed(() => outStore.poiColors)
 
 /** 获取点击元素的数据属性 */
 const getElementInfo = (event: MouseEvent) => {
@@ -69,7 +69,7 @@ onUnmounted(() => {
 			:featureSelected="featureStore.includedIds.includes(index)"
 			:streetScapeProperty="isStreetScapeOn ? mapGridStore.streetScapeList[index] || null : null"
 			:groundStreetColorRGB="isGroundStreetScapeOn ? featureStore.groundStreetscapeColorRGB[index] : null"
-			:preferenceColor="preferenceRadius === 0 ? null : preferenceColorList[index]"
+			:preferenceColor="!isEnablePreference ? null : preferenceColorList[index]"
 			:data-pic-index="index"
 		/>
 	</div>

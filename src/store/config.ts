@@ -5,7 +5,6 @@ import { ref } from 'vue'
 export enum ConfigNameEnum {
 	滑块是否在滑动后立即执行一次寻址 = 'findImmediatly',
 	'侧边栏比例（设置60，代表左侧占比60%。取值范围0-100）' = 'splitRange',
-	'景趣最大半径' = 'preferenceMaxRadius',
 }
 
 type ConfigItem = {
@@ -33,7 +32,6 @@ export const defaultConfig: ConfigType = {
 		60,
 		'map界面侧边栏占比（设置60，代表左侧占比60%。取值范围0-100）'
 	),
-	[ConfigNameEnum['景趣最大半径']]: genConfig(10, '景趣偏好最大半径'),
 }
 
 const getConfiguration = async () => {

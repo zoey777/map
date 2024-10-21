@@ -13,8 +13,6 @@ const defaultState = {
 	isMousedown: false,
 	startMouseIndex: -1,
 	currentMouseIndex: -1,
-	/** 景区偏好滑块最大半径 */
-	maxPreference: 10,
 	/** 鼠标已经点选的图片的索引 */
 	selectedIndexMap: {} as SelectedIndexMapType,
 	/** 已经框选的 */
@@ -23,8 +21,8 @@ const defaultState = {
 	streetScapeList: [] as StreetScapeType[],
 	/** 是否展示寻景图层 */
 	isStreetScapeOn: false,
-	/**	景趣偏好半径。用于计算选中点周围的半径范围内的点 */
-	preferenceRadius: 0,
+	/** 是否展示景趣偏好 */
+	isEnablePreference: false,
 }
 
 export const useMapGridStore = defineStore('map', {
@@ -92,12 +90,7 @@ export const useMapGridStore = defineStore('map', {
 			// 清除鼠标记录
 			this.startMouseIndex = -1
 			this.currentMouseIndex = -1
-		},
-		setPreference(val: number) {
-			this.preferenceRadius = val
-		},
-		initMaxPreference(val: number) {
-			this.maxPreference = val
+			this.isEnablePreference = false
 		},
 		/** 获取900个点的二维数组 */
 		getIndexArray() {

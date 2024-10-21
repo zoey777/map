@@ -6,9 +6,5 @@
     "splitRange": {
         "value": 40,
         "comment": "map界面侧边栏占比（设置60，代表左侧占比60%。取值范围0-100）"
-    },
-    "preferenceMaxRadius": {
-        "value": 10,
-        "comment": "景趣偏好最大半径"
     }
 }

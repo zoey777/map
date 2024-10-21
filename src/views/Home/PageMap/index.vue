@@ -10,7 +10,6 @@ import ChangePage from '@/components/ChangePage/index.vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import { ConfigNameEnum, useConfigStore } from '@/store/config'
 import Poi from './components/Poi.vue'
-import Preference from './components/Preference.vue'
 
 const emit = defineEmits(['prevPage', 'nextPage'])
 
@@ -60,14 +59,21 @@ const turnOnGroundStreetScape = () => {
 	featureStore.setGroundStreetscapeColorOn()
 }
 
-/** 地景关系 */
+/** 景趣偏好 */
 const turnOnPreferance = () => {
-	if (mapGridStore.preferenceRadius === 0) return
-	const preferenceColorList = Object.entries(outStore.allPointsPreferenceValue.pointColors).filter(
+	// 开关
+	mapGridStore.isEnablePreference = !mapGridStore.isEnablePreference
+
+	const preferenceColorList = Object.entries(outStore.allPointsPreferenceValue.colors).filter(
 		item => item[1] !== null
 	)
 
-	mapRef.value?.markPreference(preferenceColorList, featureStore.coordinateData)
+	mapRef.value?.markPreference(
+		mapGridStore.isEnablePreference ? preferenceColorList : [],
+		featureStore.coordinateData
+	)
+	outStore.poiColors.splice(0)
+	outStore.poiColors.push(...outStore.allPointsPreferenceValue.colors)
 }
 
 /** 清空 */
@@ -119,12 +125,18 @@ const handlePicTextCollapse = () => {
 				</div>
 				<div class="page-map-container__aside-right">
 					<el-space class="page-map-container__aside-right__top" direction="vertical" size="small">
-						<el-button @click="findLocation">{{ $t('page3.findGeo') }}</el-button>
-						<el-button @click="findStreetscape">{{ $t('page3.findStreet') }}</el-button>
-						<el-button @click="switchVisible">{{ $t('page3.hide') }}</el-button>
-						<el-button @click="turnOnGroundStreetScape">{{ $t('page3.grondSteet') }}</el-button>
-						<el-button @click="turnOnPreferance">{{ $t('page3.preferenceBtn') }}</el-button>
-						<el-button @click="clear">{{ $t('page3.default') }}</el-button>
+						<el-button @click="findLocation" type="primary" plain>{{ $t('page3.findGeo') }}</el-button>
+						<el-button @click="findStreetscape" type="primary" plain>
+							{{ $t('page3.findStreet') }}
+						</el-button>
+						<el-button @click="switchVisible" plain>{{ $t('page3.hide') }}</el-button>
+						<el-button @click="turnOnGroundStreetScape" type="primary" plain>
+							{{ $t('page3.grondSteet') }}
+						</el-button>
+						<el-button @click="turnOnPreferance" type="primary" plain>
+							{{ $t('page3.preferenceBtn') }}
+						</el-button>
+						<el-button @click="clear" type="warning" plain>{{ $t('page3.default') }}</el-button>
 					</el-space>
 					<ElDivider />
 					<div
@@ -201,7 +213,6 @@ const handlePicTextCollapse = () => {
 					>
 						{{ $t('page3.gridTitle') }}
 					</p>
-					<Preference />
 				</div>
 				<div>
 					<PicGrid />
@@ -322,6 +333,6 @@ const handlePicTextCollapse = () => {
 
 .pic-grid-title {
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 }
 </style>
